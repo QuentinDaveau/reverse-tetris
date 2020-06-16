@@ -17,17 +17,24 @@ func setup(start_position: Vector2, grid: Node2D, generator: Generator) -> void:
 
 func _ready() -> void:
 	_current_brick = _generator.pick_brick()
+	for block in _current_brick.get_block_models():
+		_grid.add_child(block)
 
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_left"):
 		_current_position = _grid.move("left", _current_position)
+		_grid.update_player_proj()
 	if Input.is_action_just_pressed("ui_right"):
 		_current_position = _grid.move("right", _current_position)
+		_grid.update_player_proj()
 	if Input.is_action_just_pressed("game_rotate"):
 		_current_brick.rotate()
-		_grid.update()
+		_grid.update_player_proj()
 	if Input.is_action_just_pressed("ui_accept"):
 		_grid.shoot_brick(_current_brick, _current_position.y)
-		_current_brick.queue_free()
+		_current_brick.explode()
 		_current_brick = _generator.pick_brick()
+		for block in _current_brick.get_block_models():
+			_grid.add_child(block)
+		_grid.update_player_proj()

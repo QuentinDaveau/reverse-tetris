@@ -4,3 +4,4 @@
 
 [node name="Brick" type="Node"]
 script = ExtResource( 1 )
+_block_path = "res://src/block/HologramBlock/HologramBlock.tscn"

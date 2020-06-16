@@ -1,73 +1,76 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/sprites/block.png" type="Texture" id=1]
 [ext_resource path="res://src/block/block.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/block_n.png" type="Texture" id=3]
+[ext_resource path="res://assets/lights/basic_light.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/particles/spark.png" type="Texture" id=5]
+[ext_resource path="res://assets/particles/dust.png" type="Texture" id=6]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=12]
+[sub_resource type="VisualShaderNodeVectorOp" id=1]
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=16]
+[sub_resource type="VisualShaderNodeVectorCompose" id=2]
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=17]
+[sub_resource type="VisualShaderNodeVectorCompose" id=3]
 
-[sub_resource type="OpenSimplexNoise" id=27]
+[sub_resource type="OpenSimplexNoise" id=4]
 seed = 1
 period = 48.0
 
-[sub_resource type="NoiseTexture" id=28]
+[sub_resource type="NoiseTexture" id=5]
 seamless = true
-noise = SubResource( 27 )
+noise = SubResource( 4 )
 
-[sub_resource type="VisualShaderNodeTexture" id=18]
+[sub_resource type="VisualShaderNodeTexture" id=6]
 output_port_for_preview = 0
-texture = SubResource( 28 )
+texture = SubResource( 5 )
 
-[sub_resource type="VisualShaderNodeVectorOp" id=19]
+[sub_resource type="VisualShaderNodeVectorOp" id=7]
 
-[sub_resource type="VisualShaderNodeVectorSmoothStep" id=20]
+[sub_resource type="VisualShaderNodeVectorSmoothStep" id=8]
 output_port_for_preview = 0
 default_input_values = [ 0, Vector3( 0.95, 0.95, 0.95 ), 1, Vector3( 1.9, 1.9, 1.9 ), 2, Vector3( 0, 0, 0 ) ]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=21]
+[sub_resource type="VisualShaderNodeScalarOp" id=9]
 default_input_values = [ 0, 0.0, 1, -1.0 ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=22]
+[sub_resource type="VisualShaderNodeInput" id=10]
 input_name = "texture"
 
-[sub_resource type="VisualShaderNodeTexture" id=23]
+[sub_resource type="VisualShaderNodeTexture" id=11]
 source = 2
 
-[sub_resource type="VisualShaderNodeInput" id=1]
+[sub_resource type="VisualShaderNodeInput" id=12]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeVectorScalarMix" id=26]
+[sub_resource type="VisualShaderNodeVectorScalarMix" id=13]
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0, 0, 0 ), 2, 0.5 ]
 
-[sub_resource type="OpenSimplexNoise" id=7]
+[sub_resource type="OpenSimplexNoise" id=14]
 period = 48.0
 
-[sub_resource type="NoiseTexture" id=8]
+[sub_resource type="NoiseTexture" id=15]
 seamless = true
-noise = SubResource( 7 )
+noise = SubResource( 14 )
 
-[sub_resource type="VisualShaderNodeTexture" id=9]
+[sub_resource type="VisualShaderNodeTexture" id=16]
 output_port_for_preview = 0
-texture = SubResource( 8 )
+texture = SubResource( 15 )
 
-[sub_resource type="VisualShaderNodeVectorOp" id=11]
+[sub_resource type="VisualShaderNodeVectorOp" id=17]
 output_port_for_preview = 0
 
-[sub_resource type="VisualShaderNodeInput" id=13]
+[sub_resource type="VisualShaderNodeInput" id=18]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=14]
+[sub_resource type="VisualShaderNodeScalarUniform" id=19]
 uniform_name = "Speed"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=15]
+[sub_resource type="VisualShaderNodeScalarOp" id=20]
 operator = 2
 
-[sub_resource type="VisualShader" id=5]
+[sub_resource type="VisualShader" id=21]
 code = "shader_type canvas_item;
 uniform float Speed;
 uniform sampler2D tex_frg_4;uniform sampler2D tex_frg_13;
@@ -169,54 +172,123 @@ void light() {
 
 }
 "
-graph_offset = Vector2( 574, 100 )
+graph_offset = Vector2( 651, 70 )
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 1620, 460 )
-nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/0/position = Vector2( 1880, 420 )
+nodes/fragment/2/node = SubResource( 12 )
 nodes/fragment/2/position = Vector2( -40, 300 )
-nodes/fragment/4/node = SubResource( 9 )
+nodes/fragment/4/node = SubResource( 16 )
 nodes/fragment/4/position = Vector2( 700, 60 )
-nodes/fragment/6/node = SubResource( 11 )
+nodes/fragment/6/node = SubResource( 17 )
 nodes/fragment/6/position = Vector2( 960, 280 )
-nodes/fragment/7/node = SubResource( 13 )
+nodes/fragment/7/node = SubResource( 18 )
 nodes/fragment/7/position = Vector2( -40, 220 )
-nodes/fragment/8/node = SubResource( 14 )
+nodes/fragment/8/node = SubResource( 19 )
 nodes/fragment/8/position = Vector2( -40, 120 )
-nodes/fragment/9/node = SubResource( 15 )
+nodes/fragment/9/node = SubResource( 20 )
 nodes/fragment/9/position = Vector2( 160, 140 )
-nodes/fragment/10/node = SubResource( 12 )
+nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( 460, 160 )
-nodes/fragment/11/node = SubResource( 16 )
+nodes/fragment/11/node = SubResource( 2 )
 nodes/fragment/11/position = Vector2( 440, 0 )
-nodes/fragment/12/node = SubResource( 17 )
+nodes/fragment/12/node = SubResource( 3 )
 nodes/fragment/12/position = Vector2( 300, 420 )
-nodes/fragment/13/node = SubResource( 18 )
+nodes/fragment/13/node = SubResource( 6 )
 nodes/fragment/13/position = Vector2( 700, 400 )
-nodes/fragment/14/node = SubResource( 19 )
+nodes/fragment/14/node = SubResource( 7 )
 nodes/fragment/14/position = Vector2( 500, 440 )
-nodes/fragment/15/node = SubResource( 20 )
+nodes/fragment/15/node = SubResource( 8 )
 nodes/fragment/15/position = Vector2( 1140, 260 )
-nodes/fragment/16/node = SubResource( 21 )
+nodes/fragment/16/node = SubResource( 9 )
 nodes/fragment/16/position = Vector2( 160, 0 )
-nodes/fragment/17/node = SubResource( 22 )
+nodes/fragment/17/node = SubResource( 10 )
 nodes/fragment/17/position = Vector2( 940, 560 )
-nodes/fragment/18/node = SubResource( 23 )
+nodes/fragment/18/node = SubResource( 11 )
 nodes/fragment/18/position = Vector2( 1140, 500 )
-nodes/fragment/21/node = SubResource( 26 )
+nodes/fragment/21/node = SubResource( 13 )
 nodes/fragment/21/position = Vector2( 1400, 480 )
-nodes/fragment/connections = PoolIntArray( 8, 0, 9, 0, 7, 0, 9, 1, 2, 0, 10, 1, 10, 0, 4, 0, 11, 0, 10, 0, 9, 0, 12, 1, 2, 0, 14, 0, 12, 0, 14, 1, 14, 0, 13, 0, 13, 0, 6, 1, 6, 0, 15, 2, 9, 0, 16, 0, 16, 0, 11, 1, 17, 0, 18, 2, 18, 1, 21, 2, 21, 0, 0, 0, 18, 0, 21, 1, 4, 0, 6, 0, 15, 0, 21, 0 )
+nodes/fragment/connections = PoolIntArray( 8, 0, 9, 0, 7, 0, 9, 1, 2, 0, 10, 1, 10, 0, 4, 0, 11, 0, 10, 0, 9, 0, 12, 1, 2, 0, 14, 0, 12, 0, 14, 1, 14, 0, 13, 0, 13, 0, 6, 1, 6, 0, 15, 2, 9, 0, 16, 0, 16, 0, 11, 1, 17, 0, 18, 2, 18, 1, 21, 2, 18, 0, 21, 1, 4, 0, 6, 0, 15, 0, 21, 0, 21, 0, 0, 0 )
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 21 )
 shader_param/Speed = 0.025
 
-[node name="Block" type="Node2D"]
+[sub_resource type="Gradient" id=27]
+offsets = PoolRealArray( 0.785185, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=28]
+gradient = SubResource( 27 )
+
+[sub_resource type="ParticlesMaterial" id=23]
+lifetime_randomness = 0.17
+emission_shape = 2
+emission_box_extents = Vector3( 15, 15, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.05
+color_ramp = SubResource( 28 )
+hue_variation = 0.31
+hue_variation_random = 1.0
+
+[sub_resource type="Gradient" id=29]
+colors = PoolColorArray( 1, 1, 1, 0.811765, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=30]
+gradient = SubResource( 29 )
+
+[sub_resource type="ParticlesMaterial" id=31]
+lifetime_randomness = 0.83
+emission_shape = 2
+emission_box_extents = Vector3( 14, 14, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.05
+color_ramp = SubResource( 30 )
+
+[sub_resource type="Gradient" id=24]
+offsets = PoolRealArray( 0.311111, 1 )
+colors = PoolColorArray( 1, 0.968627, 0.815686, 1, 1, 0.305882, 0, 0 )
+
+[sub_resource type="GradientTexture" id=25]
+gradient = SubResource( 24 )
+
+[sub_resource type="ParticlesMaterial" id=26]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.34
+flag_align_y = true
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1000.0
+initial_velocity_random = 0.89
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+damping_random = 0.56
+scale = 0.12
+color_ramp = SubResource( 25 )
+
+[node name="Block" type="Node2D" groups=[
+"Block",
+]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
-material = SubResource( 6 )
+material = SubResource( 22 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 normal_map = ExtResource( 3 )
@@ -227,3 +299,54 @@ one_shot = true
 [node name="MoveTimer" type="Timer" parent="."]
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="TrailParticles" type="Particles2D" parent="."]
+modulate = Color( 10, 10, 10, 1 )
+z_index = 1
+emitting = false
+amount = 20
+lifetime = 0.2
+local_coords = false
+process_material = SubResource( 23 )
+texture = ExtResource( 6 )
+
+[node name="DustParticles" type="Particles2D" parent="."]
+z_index = 1
+emitting = false
+amount = 80
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 31 )
+texture = ExtResource( 6 )
+
+[node name="ExplosionParticles" type="Particles2D" parent="."]
+modulate = Color( 10, 10, 10, 1 )
+z_index = 1
+emitting = false
+amount = 80
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.99
+process_material = SubResource( 26 )
+texture = ExtResource( 5 )
+
+[node name="Light2D" type="Light2D" parent="."]
+enabled = false
+texture = ExtResource( 4 )
+texture_scale = 3.0
+color = Color( 1, 0.984314, 0.831373, 1 )
+energy = 3.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 3, 3, 3, 1 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+color = Color( 0.898039, 0.902022, 1, 0.694118 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

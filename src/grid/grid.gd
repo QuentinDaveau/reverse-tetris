@@ -15,7 +15,7 @@ var cells: Array = []
 var _player: Player
 
 var _wall_delay: int = 0
-var _block_move_delay: float = 0.1
+var _block_move_delay: float = 0.07
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,6 +30,7 @@ func _ready() -> void:
 	_player = player
 	add_child(player)
 	_push_wall(3)
+	update_player_proj()
 
 
 func move(direction: String, entity_position: Vector2) -> Vector2:
@@ -74,8 +75,21 @@ func shoot_brick(brick: Brick, row: int) -> bool:
 		_destroy_block(Vector2(pos.x, pos.y))
 		cells[pos.x][pos.y] = 0
 	_push_wall(1)
-	update()
 	return true
+
+
+func update_player_proj() -> void:
+	var pos = project_brick(_player._current_brick, _player._current_position.y)
+	var blocks = _player._current_brick.get_blocks()
+	var models = _player._current_brick.get_block_models()
+	for i in range(blocks.size()):
+		models[i].global_position = _convert_to_world_position(Vector2(
+			pos.x + blocks[i].y,
+			int(_rows + pos.y + blocks[i].x) % _rows))
+		
+#		models[i].global_position = _convert_to_world_position(pos + Vector2(blocks[i].x, blocks[i].y))
+#		draw_rect(Rect2(Vector2(2 + (int(_rows + pos.y + block.x) % _rows) * _cell_size, -2 - (pos.x + block.y) * _cell_size), Vector2(1, -1) * (_cell_size - 5)), Color.blue)
+
 
 
 func _push_wall(amount: int) -> void:
@@ -100,7 +114,6 @@ func _push_wall(amount: int) -> void:
 					if first_move == -1:
 						first_move = i
 					cells[i][j] = _instance_block(Vector2(i, j), (1 +i - first_move) * _block_move_delay)
-	update()
 
 
 func _instance_block(grid_position: Vector2, block_show_delay) -> Block:
@@ -141,25 +154,7 @@ func _check_and_move(current_position: Vector2, new_position: Vector2) -> Vector
 	if not cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows]:
 		cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows] = cells[current_position.x][current_position.y]
 		cells[current_position.x][current_position.y] = 0
-		update()
 		_push_wall(1)
 		return Vector2(int(_columns + new_position.x) % _columns, int(_rows + new_position.y) % _rows)
 	else:
 		return current_position
-
-
-func _draw() -> void:
-#	for i in range(_columns + 1):
-#		draw_line(Vector2(0, - i * _cell_size), Vector2(_cell_size * _rows + 1, - i * _cell_size), Color.black)
-#		for j in range(_rows + 1):
-#			draw_line(Vector2(j * _cell_size, 0), Vector2(j * _cell_size, -(_cell_size * _columns + 1)), Color.black)
-#	for i in range(_columns):
-#		for j in range(_rows):
-#			if cells[i][j] is Block:
-#				draw_rect(Rect2(Vector2(j * _cell_size + 2, -i * _cell_size - 2), Vector2(1, -1) * (_cell_size - 4)), Color.green)
-#			if cells[i][j] is Player:
-#				draw_rect(Rect2(Vector2(j * _cell_size + 2, -i * _cell_size - 2), Vector2(1, -1) * (_cell_size - 4)), Color.red)
-	var pos = project_brick(_player._current_brick, _player._current_position.y)
-	for block in _player._current_brick.get_blocks():
-		draw_rect(Rect2(Vector2(2 + (int(_rows + pos.y + block.x) % _rows) * _cell_size, -2 - (pos.x + block.y) * _cell_size), Vector2(1, -1) * (_cell_size - 5)), Color.blue)
-

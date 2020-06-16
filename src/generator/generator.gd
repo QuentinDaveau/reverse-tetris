@@ -43,6 +43,7 @@ func _charge_brick_paths() -> void:
 
 
 func _instance_random_brick() -> void:
-	_bricks_queue.append(
-		_bricks_instances[randi()%_bricks_instances.size()].instance())
+	var brick = _bricks_instances[randi()%_bricks_instances.size()].instance()
+	brick.setup()
+	_bricks_queue.append(brick)
 	emit_signal("queue_updated", _bricks_queue)
