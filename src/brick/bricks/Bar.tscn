@@ -4,3 +4,4 @@
 
 [node name="Bar" instance=ExtResource( 1 )]
 _blocks = PoolVector2Array( 0, 0, 1, 0, -1, 0, 2, 0 )
+_blocks_color = Color( 0.431373, 0.0705882, 0.145098, 1 )

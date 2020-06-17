@@ -6,8 +6,10 @@ export(int) var _columns: int = 20
 export(float) var _cell_size: float
 export(String, FILE, "*.tscn") var _player_path: String
 export(String, FILE, "*.tscn") var _block_path: String
+export(String, FILE, "*.tscn") var _smoke_spawner_path: String
 
 onready var _block = load(_block_path)
+onready var _smoke_spawner = load(_smoke_spawner_path)
 
 # 2D array, 0 = empty, 1 = block
 # Columns then rows
@@ -20,6 +22,11 @@ var _block_move_delay: float = 0.07
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	$Neon.scale = Vector2(_rows * _cell_size / 512, _columns * _cell_size / 1024)
+	$Neon.position = Vector2(128 - _cell_size / 2, _cell_size / 2)
+	
+	
 	for i in range(_columns):
 		cells.append([])
 		for j in range(_rows):
@@ -72,7 +79,7 @@ func shoot_brick(brick: Brick, row: int) -> bool:
 	for block in brick.get_blocks():
 		neighbours.append_array(_find_neighbour(Vector2(hit_position.x + block.y, int(_rows + hit_position.y + block.x) % _rows)))
 	for pos in neighbours:
-		_destroy_block(Vector2(pos.x, pos.y))
+		_destroy_block(Vector2(pos.x, pos.y), brick.get_blocks_color())
 		cells[pos.x][pos.y] = 0
 	_push_wall(1)
 	return true
@@ -83,9 +90,9 @@ func update_player_proj() -> void:
 	var blocks = _player._current_brick.get_blocks()
 	var models = _player._current_brick.get_block_models()
 	for i in range(blocks.size()):
-		models[i].global_position = _convert_to_world_position(Vector2(
-			pos.x + blocks[i].y,
-			int(_rows + pos.y + blocks[i].x) % _rows))
+		models[i].move(_convert_to_world_position(Vector2(pos.x + blocks[i].y,
+			int(_rows + pos.y + blocks[i].x) % _rows)))
+		models[i].update_shader(blocks[i].y)
 		
 #		models[i].global_position = _convert_to_world_position(pos + Vector2(blocks[i].x, blocks[i].y))
 #		draw_rect(Rect2(Vector2(2 + (int(_rows + pos.y + block.x) % _rows) * _cell_size, -2 - (pos.x + block.y) * _cell_size), Vector2(1, -1) * (_cell_size - 5)), Color.blue)
@@ -126,11 +133,22 @@ func _instance_block(grid_position: Vector2, block_show_delay) -> Block:
 	return block
 
 
-func _destroy_block(grid_position: Vector2) -> void:
+func _destroy_block(grid_position: Vector2, explosion_color: Color) -> void:
 	if not cells[grid_position.x][grid_position.y] is Block:
 		return
-	cells[grid_position.x][grid_position.y].explode()
+	_spawn_smoke(cells[grid_position.x][grid_position.y].global_position)
+	cells[grid_position.x][grid_position.y].explode(explosion_color, 
+			(grid_position.y * _cell_size) + (_cell_size / 2),
+			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
+			(grid_position.x * _cell_size) + (_cell_size / 2))
 	cells[grid_position.x][grid_position.y] = 0
+
+
+func _spawn_smoke(spawner_pos: Vector2) -> void:
+	var smoke = _smoke_spawner.instance()
+	add_child(smoke)
+	smoke.global_position = spawner_pos
+	smoke.smoke()
 
 
 func _convert_to_world_position(grid_position: Vector2) -> Vector2:

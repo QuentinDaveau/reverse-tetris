@@ -4,3 +4,4 @@
 
 [node name="Triangle" instance=ExtResource( 1 )]
 _blocks = PoolVector2Array( 0, 0, 1, 0, -1, 0, 0, 1 )
+_blocks_color = Color( 0.270588, 0.431373, 0.0862745, 1 )

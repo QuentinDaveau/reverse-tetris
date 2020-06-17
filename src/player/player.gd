@@ -33,8 +33,10 @@ func _process(delta: float) -> void:
 		_grid.update_player_proj()
 	if Input.is_action_just_pressed("ui_accept"):
 		_grid.shoot_brick(_current_brick, _current_position.y)
-		_current_brick.explode()
+		var exploding_brick = _current_brick
+		exploding_brick.explode()
 		_current_brick = _generator.pick_brick()
+		yield(exploding_brick, "exploded")
 		for block in _current_brick.get_block_models():
 			_grid.add_child(block)
 		_grid.update_player_proj()

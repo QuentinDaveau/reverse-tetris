@@ -5,3 +5,4 @@
 [node name="Cube" instance=ExtResource( 1 )]
 _can_rotate = false
 _blocks = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+_blocks_color = Color( 0.141176, 0.0901961, 0.431373, 1 )

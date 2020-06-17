@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/generator/Generator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/background/Background.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -10,10 +11,17 @@ glow_enabled = true
 [node name="Game" type="Node2D"]
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
-position = Vector2( 357.164, 626.961 )
+position = Vector2( 400, 576 )
+_columns = 18
 _cell_size = 32.0
 _player_path = "res://src/player/Player.tscn"
 _block_path = "res://src/block/Block.tscn"
+_smoke_spawner_path = "res://src/grid/smoke_spawner/SmokeSpawner.tscn"
+
+[node name="BackGround" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 304 )
+scale = Vector2( 4, 4 )
+z_index = -1
 
 [node name="Generator" parent="." instance=ExtResource( 2 )]
 _bricks_folder = "res://src/brick/bricks"
