@@ -19,6 +19,8 @@ var _player: Player
 var _wall_delay: int = 0
 var _block_move_delay: float = 0.07
 
+var _highlighted_blocks: Array = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -93,10 +95,18 @@ func update_player_proj() -> void:
 		models[i].move(_convert_to_world_position(Vector2(pos.x + blocks[i].y,
 			int(_rows + pos.y + blocks[i].x) % _rows)))
 		models[i].update_shader(blocks[i].y)
-		
-#		models[i].global_position = _convert_to_world_position(pos + Vector2(blocks[i].x, blocks[i].y))
-#		draw_rect(Rect2(Vector2(2 + (int(_rows + pos.y + block.x) % _rows) * _cell_size, -2 - (pos.x + block.y) * _cell_size), Vector2(1, -1) * (_cell_size - 5)), Color.blue)
-
+	
+	var neighbours: PoolVector2Array = []
+	for block in blocks:
+		neighbours.append_array(_find_neighbour(Vector2(pos.x + block.y, int(_rows + pos.y + block.x) % _rows)))
+	for block in _highlighted_blocks:
+		if not block:
+			continue
+		block.highlight(Color.black)
+	_highlighted_blocks = []
+	for block in neighbours:
+		cells[block.x][block.y].highlight(_player._current_brick.get_blocks_color())
+		_highlighted_blocks.append(cells[block.x][block.y])
 
 
 func _push_wall(amount: int) -> void:

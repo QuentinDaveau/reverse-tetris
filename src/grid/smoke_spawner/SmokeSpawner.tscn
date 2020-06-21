@@ -3,14 +3,14 @@
 [ext_resource path="res://src/grid/smoke_spawner/smoke_spawner.gd" type="Script" id=1]
 [ext_resource path="res://assets/particles/smoke.png" type="Texture" id=2]
 
-[sub_resource type="Gradient" id=32]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.343284, 0.798507 )
-colors = PoolColorArray( 0.521569, 0.521569, 0.521569, 0, 0.52549, 0.52549, 0.52549, 0.12549, 0.541176, 0.541176, 0.541176, 0 )
+colors = PoolColorArray( 0.129412, 0.129412, 0.129412, 0, 0.129412, 0.129412, 0.129412, 0.156863, 0.129412, 0.129412, 0.129412, 0 )
 
-[sub_resource type="GradientTexture" id=33]
-gradient = SubResource( 32 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=34]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
 emission_box_extents = Vector3( 12, 12, 1 )
 flag_disable_z = true
@@ -22,7 +22,7 @@ initial_velocity_random = 0.5
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 0.5
-color_ramp = SubResource( 33 )
+color_ramp = SubResource( 2 )
 
 [node name="SmokeSpawner" type="Particles2D"]
 light_mask = 2
@@ -32,7 +32,7 @@ amount = 1
 lifetime = 30.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 34 )
+process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

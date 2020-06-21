@@ -4,7 +4,7 @@ class_name Block
 const MAX_REPULSE_DIST: float = 200.0
 const MAX_SHAKE_DIST: float = 200.0
 const REPULSE_POWER: float = 15.0
-const SHAKE_POWER: float = 15.0
+const CAMERA_SHAKE_POWER: float = 5.0
 
 var _explode_delay: float = 0.2
 var _move_speed: float = 0.2
@@ -19,6 +19,10 @@ func _process(delta: float) -> void:
 	if abs($Sprite.rotation) > 0.001:
 		_repulse_shake = lerp(_repulse_shake, 0.0, 0.2)
 		$Sprite.rotation = _repulse_shake
+
+
+func highlight(highlight_color: Color) -> void:
+	$Sprite.get_material().set_shader_param("HighlightColor", highlight_color)
 
 
 func repulse(origin: Vector2) -> void:
@@ -59,7 +63,6 @@ func update_position(new_position: Vector2, wait_time: float) -> void:
 
 
 func explode(explosion_color: Color, limit_left: float, limit_right: float, limit_bottom: float) -> void:
-	print(limit_left, "   ", limit_right, "   ", limit_bottom)
 	$Light2D.color = explosion_color
 	$ColorRect.color = explosion_color
 	randomize()
@@ -71,7 +74,7 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	
 	for block in get_tree().get_nodes_in_group("Block"):
 		block.repulse(global_position)
-	
+	CameraManager.get_camera().add_shake(CAMERA_SHAKE_POWER)
 	$ExplosionParticles.get_process_material().set_shader_param("max_left", limit_left)
 	$ExplosionParticles.get_process_material().set_shader_param("max_right", limit_right)
 	$ExplosionParticles.get_process_material().set_shader_param("max_bottom", limit_bottom)
