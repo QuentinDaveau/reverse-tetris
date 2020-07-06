@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/sprites/counter_numbers.png" type="Texture" id=1]
+[ext_resource path="res://src/ui/score_counter/score_wheel/score_wheel.gd" type="Script" id=2]
+
+[sub_resource type="VisualShaderNodeInput" id=1]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=2]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=3]
+output_port_for_preview = 0
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarOp" id=4]
+default_input_values = [ 0, 0.0, 1, 3.14159 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=5]
+output_port_for_preview = 0
+function = 31
+
+[sub_resource type="VisualShaderNodeScalarOp" id=6]
+output_port_for_preview = 0
+default_input_values = [ 0, 0.0, 1, 1.0 ]
+operator = 5
+
+[sub_resource type="VisualShaderNodeColorConstant" id=7]
+constant = Color( 0, 0, 0, 1 )
+
+[sub_resource type="VisualShader" id=8]
+code = "shader_type canvas_item;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:8
+	vec3 n_out8p0;
+	float n_out8p1;
+	n_out8p0 = vec3(0.000000,0.000000,0.000000);
+	n_out8p1 = 1.000000;
+
+// Input:2
+	vec3 n_out2p0;
+	n_out2p0 = vec3(UV,0.0);
+
+// VectorDecompose:3
+	float n_out3p0;
+	float n_out3p1;
+	float n_out3p2;
+	n_out3p0 = n_out2p0.x;
+	n_out3p1 = n_out2p0.y;
+	n_out3p2 = n_out2p0.z;
+
+// ScalarOp:5
+	float n_in5p1 = 3.14159;
+	float n_out5p0;
+	n_out5p0 = n_out3p1 * n_in5p1;
+
+// ScalarFunc:4
+	float n_out4p0;
+	n_out4p0 = sin(n_out5p0);
+
+// ScalarFunc:6
+	float n_out6p0;
+	n_out6p0 = 1.0-n_out4p0;
+
+// ScalarOp:7
+	float n_in7p1 = 1.00000;
+	float n_out7p0;
+	n_out7p0 = pow( n_out6p0 , n_in7p1 );
+
+// Output:0
+	COLOR.rgb = n_out8p0;
+	COLOR.a = n_out7p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -433.25, 45 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 660, 200 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( -390.25, 149.5 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( -220, 140 )
+nodes/fragment/4/node = SubResource( 3 )
+nodes/fragment/4/position = Vector2( 40, 160 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( -220, 240 )
+nodes/fragment/6/node = SubResource( 5 )
+nodes/fragment/6/position = Vector2( 240, 120 )
+nodes/fragment/7/node = SubResource( 6 )
+nodes/fragment/7/position = Vector2( 240, 320 )
+nodes/fragment/8/node = SubResource( 7 )
+nodes/fragment/8/position = Vector2( 240, 580 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 3, 0, 3, 1, 5, 0, 5, 0, 4, 0, 4, 0, 6, 0, 6, 0, 7, 0, 8, 0, 0, 0, 7, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+
+[node name="ScoreWheel" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.784314, 0.901961, 0.901961, 1 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 128, 128, 128 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 9 )
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

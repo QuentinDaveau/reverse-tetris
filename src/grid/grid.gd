@@ -17,7 +17,7 @@ var cells: Array = []
 var _player: Player
 
 var _wall_delay: int = 0
-var _block_move_delay: float = 0.07
+var _block_move_delay: float = 0.04
 
 var _highlighted_blocks: Array = []
 
@@ -150,7 +150,7 @@ func _destroy_block(grid_position: Vector2, explosion_color: Color) -> void:
 	cells[grid_position.x][grid_position.y].explode(explosion_color, 
 			(grid_position.y * _cell_size) + (_cell_size / 2),
 			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
-			(grid_position.x * _cell_size) + (_cell_size / 2))
+			(grid_position.x * _cell_size) - (_cell_size / 2))
 	cells[grid_position.x][grid_position.y] = 0
 
 

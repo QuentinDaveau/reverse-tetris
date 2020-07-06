@@ -1,9 +1,85 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/generator/Generator.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/background/Background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ui/background/Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/game_camera.gd" type="Script" id=4]
+[ext_resource path="res://src/ui/score_counter/ScoreCounter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sprites/bars.png" type="Texture" id=7]
+
+[sub_resource type="VisualShaderNodeTexture" id=2]
+source = 1
+
+[sub_resource type="VisualShaderNodeInput" id=3]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeColorConstant" id=4]
+constant = Color( 0, 0, 0, 1 )
+
+[sub_resource type="VisualShaderNodeVectorScalarMix" id=5]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 1, 1, 1 ), 2, 0.25 ]
+
+[sub_resource type="VisualShader" id=6]
+code = "shader_type canvas_item;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:4
+	vec3 n_out4p0;
+	float n_out4p1;
+	n_out4p0 = vec3(0.000000,0.000000,0.000000);
+	n_out4p1 = 1.000000;
+
+// Input:3
+	vec3 n_out3p0;
+	n_out3p0 = vec3(SCREEN_UV,0.0);
+
+// Texture:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	{
+		vec4 _tex_read = textureLod( SCREEN_TEXTURE , n_out3p0.xy , 0.0 );
+		n_out2p0 = _tex_read.rgb;
+		n_out2p1 = _tex_read.a;
+	}
+
+// VectorScalarMix:5
+	float n_in5p2 = 0.25000;
+	vec3 n_out5p0;
+	n_out5p0 = mix( n_out4p0 , n_out2p0 , n_in5p2 );
+
+// Output:0
+	COLOR.rgb = n_out5p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -250, 155 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 760, 160 )
+nodes/fragment/2/node = SubResource( 2 )
+nodes/fragment/2/position = Vector2( 220, 160 )
+nodes/fragment/3/node = SubResource( 3 )
+nodes/fragment/3/position = Vector2( -60, 180 )
+nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/position = Vector2( 149, 326 )
+nodes/fragment/5/node = SubResource( 5 )
+nodes/fragment/5/position = Vector2( 460, 260 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 2, 0, 4, 0, 5, 0, 2, 0, 5, 1, 5, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -11,8 +87,118 @@ glow_enabled = true
 
 [node name="Game" type="Node2D"]
 
+[node name="CounterBars" type="Node2D" parent="."]
+position = Vector2( 352, 536 )
+scale = Vector2( 0.16, 0.16 )
+
+[node name="Node2D" type="Node2D" parent="CounterBars"]
+scale = Vector2( 1, 1 )
+z_index = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CounterBars/Node2D"]
+self_modulate = Color( 0.247059, 0.247059, 0.247059, 0.843137 )
+light_mask = 3
+margin_left = 1612.0
+margin_top = -2325.0
+margin_right = 2987.0
+margin_bottom = -1975.0
+texture = ExtResource( 7 )
+draw_center = false
+region_rect = Rect2( 0, 0, 192, 192 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreCounter" parent="." instance=ExtResource( 5 )]
+position = Vector2( 720, 192 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="PredictorBars" type="Node2D" parent="."]
+position = Vector2( 352, 536 )
+scale = Vector2( 0.16, 0.16 )
+
+[node name="Node2D" type="Node2D" parent="PredictorBars"]
+scale = Vector2( 1, 1 )
+z_index = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PredictorBars/Node2D"]
+self_modulate = Color( 0.247059, 0.247059, 0.247059, 0.843137 )
+light_mask = 3
+margin_left = 1614.0
+margin_top = -2325.0
+margin_right = 2987.0
+margin_bottom = 321.0
+texture = ExtResource( 7 )
+draw_center = false
+region_rect = Rect2( 0, 0, 192, 192 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D2" type="Node2D" parent="PredictorBars"]
+scale = Vector2( 1, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="PredictorBars/Node2D2"]
+light_mask = 3
+material = SubResource( 7 )
+margin_left = 1675.0
+margin_top = -1975.0
+margin_right = 2925.0
+margin_bottom = 262.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameBars" type="Node2D" parent="."]
+position = Vector2( 352, 536 )
+scale = Vector2( 0.16, 0.16 )
+
+[node name="Node2D" type="Node2D" parent="GameBars"]
+scale = Vector2( 1, 1 )
+z_index = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GameBars/Node2D"]
+self_modulate = Color( 0.247059, 0.247059, 0.247059, 0.843137 )
+light_mask = 3
+margin_left = -75.0
+margin_top = -3325.0
+margin_right = 1675.0
+margin_bottom = 321.0
+texture = ExtResource( 7 )
+draw_center = false
+region_rect = Rect2( 0, 0, 192, 192 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D2" type="Node2D" parent="GameBars"]
+scale = Vector2( 1, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="GameBars/Node2D2"]
+light_mask = 3
+material = SubResource( 7 )
+margin_left = -12.0
+margin_top = -3263.0
+margin_right = 1614.0
+margin_bottom = 262.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Grid" parent="." instance=ExtResource( 1 )]
-position = Vector2( 400, 576 )
+position = Vector2( 368, 576 )
 _columns = 18
 _cell_size = 32.0
 _player_path = "res://src/player/Player.tscn"

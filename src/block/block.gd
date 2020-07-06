@@ -1,10 +1,12 @@
 extends Node2D
 class_name Block
 
+const SCORE_SPEED_INCREASE: float = 200.0
+
 const MAX_REPULSE_DIST: float = 200.0
 const MAX_SHAKE_DIST: float = 200.0
 const REPULSE_POWER: float = 15.0
-const CAMERA_SHAKE_POWER: float = 5.0
+const CAMERA_SHAKE_POWER: float = 3.0
 
 var _explode_delay: float = 0.2
 var _move_speed: float = 0.2
@@ -72,6 +74,7 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
 	
+	ScoreManager.get_counter().add_speed(SCORE_SPEED_INCREASE)
 	for block in get_tree().get_nodes_in_group("Block"):
 		block.repulse(global_position)
 	CameraManager.get_camera().add_shake(CAMERA_SHAKE_POWER)

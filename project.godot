@@ -28,12 +28,24 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/player/player.gd"
+}, {
+"base": "Node2D",
+"class": "ScoreCounter",
+"language": "GDScript",
+"path": "res://src/ui/score_counter/score_counter.gd"
+}, {
+"base": "Node2D",
+"class": "ScoreWheel",
+"language": "GDScript",
+"path": "res://src/ui/score_counter/score_wheel/score_wheel.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
 "Brick": "",
 "Generator": "",
-"Player": ""
+"Player": "",
+"ScoreCounter": "",
+"ScoreWheel": ""
 }
 
 [application]
@@ -45,6 +57,7 @@ config/icon="res://icon.png"
 [autoload]
 
 CameraManager="*res://src/autoload/camera_manager.gd"
+ScoreManager="*res://src/autoload/score_manager.gd"
 
 [display]
 
