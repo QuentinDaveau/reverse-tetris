@@ -110,49 +110,49 @@ operator = 2
 default_input_values = [ 0, 0.0, 1, 1.1 ]
 operator = 3
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=50]
+[sub_resource type="VisualShaderNodeScalarUniform" id=36]
 uniform_name = "delay"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=51]
-
-[sub_resource type="VisualShaderNodeScalarOp" id=52]
-operator = 2
-
-[sub_resource type="VisualShaderNodeTexture" id=36]
-source = 2
-
-[sub_resource type="VisualShaderNodeVectorSmoothStep" id=37]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 1, 1, 1 ), 2, Vector3( 0, 0, 0 ) ]
+[sub_resource type="VisualShaderNodeScalarOp" id=37]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=38]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id=39]
+source = 2
+
+[sub_resource type="VisualShaderNodeVectorSmoothStep" id=40]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 1, 1, 1 ), 2, Vector3( 0, 0, 0 ) ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=41]
 default_input_values = [ 0, 0.0, 1, 0.5 ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=39]
+[sub_resource type="VisualShaderNodeScalarOp" id=42]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=40]
+[sub_resource type="VisualShaderNodeInput" id=43]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=41]
+[sub_resource type="VisualShaderNodeScalarFunc" id=44]
 function = 0
 
-[sub_resource type="VisualShaderNodeScalarOp" id=42]
+[sub_resource type="VisualShaderNodeScalarOp" id=45]
 operator = 9
 
-[sub_resource type="VisualShaderNodeScalarOp" id=43]
+[sub_resource type="VisualShaderNodeScalarOp" id=46]
 
-[sub_resource type="VisualShaderNodeInput" id=44]
+[sub_resource type="VisualShaderNodeInput" id=47]
 input_name = "vertex"
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=45]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=48]
 
-[sub_resource type="VisualShaderNodeVectorCompose" id=46]
+[sub_resource type="VisualShaderNodeVectorCompose" id=49]
 
-[sub_resource type="VisualShaderNodeScalarConstant" id=47]
+[sub_resource type="VisualShaderNodeScalarConstant" id=50]
 constant = 100.0
 
-[sub_resource type="VisualShader" id=48]
+[sub_resource type="VisualShader" id=51]
 code = "shader_type canvas_item;
 uniform vec4 ColorModulator : hint_color;
 uniform float Displacement;
@@ -366,7 +366,7 @@ void fragment() {
 
 // Scalar:32
 	float n_out32p0;
-	n_out32p0 = 100.000008;
+	n_out32p0 = 100.000000;
 
 // ScalarOp:33
 	float n_out33p0;
@@ -410,25 +410,25 @@ void light() {
 graph_offset = Vector2( -1482.5, 695 )
 mode = 1
 flags/light_only = false
-nodes/vertex/2/node = SubResource( 40 )
+nodes/vertex/2/node = SubResource( 43 )
 nodes/vertex/2/position = Vector2( -580, 240 )
-nodes/vertex/3/node = SubResource( 41 )
+nodes/vertex/3/node = SubResource( 44 )
 nodes/vertex/3/position = Vector2( -220, 160 )
-nodes/vertex/4/node = SubResource( 42 )
+nodes/vertex/4/node = SubResource( 45 )
 nodes/vertex/4/position = Vector2( -280, 260 )
-nodes/vertex/5/node = SubResource( 43 )
+nodes/vertex/5/node = SubResource( 46 )
 nodes/vertex/5/position = Vector2( 160, 320 )
-nodes/vertex/6/node = SubResource( 44 )
+nodes/vertex/6/node = SubResource( 47 )
 nodes/vertex/6/position = Vector2( -500, 380 )
-nodes/vertex/7/node = SubResource( 45 )
+nodes/vertex/7/node = SubResource( 48 )
 nodes/vertex/7/position = Vector2( -260, 400 )
-nodes/vertex/8/node = SubResource( 46 )
+nodes/vertex/8/node = SubResource( 49 )
 nodes/vertex/8/position = Vector2( 353.091, 385 )
-nodes/vertex/9/node = SubResource( 47 )
+nodes/vertex/9/node = SubResource( 50 )
 nodes/vertex/9/position = Vector2( -600, 160 )
-nodes/vertex/10/node = SubResource( 38 )
+nodes/vertex/10/node = SubResource( 41 )
 nodes/vertex/10/position = Vector2( -40, 240 )
-nodes/vertex/11/node = SubResource( 39 )
+nodes/vertex/11/node = SubResource( 42 )
 nodes/vertex/11/position = Vector2( -420, 120 )
 nodes/vertex/connections = PoolIntArray( 3, 0, 4, 0, 6, 0, 7, 0, 7, 2, 8, 2, 8, 0, 0, 0, 4, 0, 10, 0, 10, 0, 5, 0, 9, 0, 11, 0, 2, 0, 11, 1, 11, 0, 3, 0, 5, 0, 8, 1, 7, 0, 8, 0, 7, 1, 5, 1 )
 nodes/fragment/0/position = Vector2( 680, 200 )
@@ -436,9 +436,9 @@ nodes/fragment/2/node = SubResource( 10 )
 nodes/fragment/2/position = Vector2( -320, 60 )
 nodes/fragment/4/node = SubResource( 31 )
 nodes/fragment/4/position = Vector2( -100, 120 )
-nodes/fragment/6/node = SubResource( 36 )
+nodes/fragment/6/node = SubResource( 39 )
 nodes/fragment/6/position = Vector2( -320, 180 )
-nodes/fragment/7/node = SubResource( 37 )
+nodes/fragment/7/node = SubResource( 40 )
 nodes/fragment/7/position = Vector2( 120, 120 )
 nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( -760, -140 )
@@ -506,18 +506,18 @@ nodes/fragment/42/node = SubResource( 34 )
 nodes/fragment/42/position = Vector2( -140, -220 )
 nodes/fragment/43/node = SubResource( 35 )
 nodes/fragment/43/position = Vector2( 400, 420 )
-nodes/fragment/44/node = SubResource( 50 )
+nodes/fragment/44/node = SubResource( 36 )
 nodes/fragment/44/position = Vector2( -900, -560 )
-nodes/fragment/45/node = SubResource( 51 )
+nodes/fragment/45/node = SubResource( 37 )
 nodes/fragment/45/position = Vector2( -520, -460 )
-nodes/fragment/46/node = SubResource( 52 )
+nodes/fragment/46/node = SubResource( 38 )
 nodes/fragment/46/position = Vector2( -720, -500 )
 nodes/fragment/connections = PoolIntArray( 2, 0, 4, 0, 6, 0, 4, 1, 4, 0, 7, 2, 10, 0, 11, 0, 14, 0, 12, 1, 14, 0, 16, 0, 16, 0, 15, 1, 15, 0, 17, 0, 17, 0, 18, 0, 17, 0, 18, 1, 17, 0, 18, 2, 18, 0, 19, 1, 19, 0, 0, 0, 12, 0, 15, 0, 7, 0, 19, 0, 21, 0, 22, 1, 24, 0, 25, 0, 11, 0, 26, 0, 25, 0, 26, 1, 11, 1, 27, 1, 11, 2, 27, 2, 26, 0, 27, 0, 27, 0, 6, 0, 22, 0, 28, 0, 29, 0, 30, 1, 11, 1, 30, 0, 30, 0, 28, 1, 28, 0, 23, 0, 23, 0, 31, 0, 31, 0, 25, 1, 32, 0, 33, 1, 33, 0, 34, 0, 34, 0, 35, 0, 36, 0, 33, 0, 35, 0, 37, 0, 37, 0, 38, 0, 6, 1, 38, 1, 39, 0, 41, 1, 40, 0, 41, 0, 41, 0, 42, 0, 42, 0, 12, 0, 11, 1, 42, 1, 38, 0, 43, 0, 43, 0, 0, 1, 20, 0, 45, 0, 45, 0, 22, 0, 44, 0, 46, 0, 21, 0, 46, 1, 46, 0, 45, 1 )
 
-[sub_resource type="ShaderMaterial" id=49]
+[sub_resource type="ShaderMaterial" id=52]
 resource_local_to_scene = true
 render_priority = 1
-shader = SubResource( 48 )
+shader = SubResource( 51 )
 shader_param/ColorModulator = Color( 0.00392157, 0.505882, 0, 1 )
 shader_param/Displacement = 0.05
 shader_param/delay = 0.0
@@ -530,7 +530,7 @@ script = ExtResource( 3 )
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 5, 5, 5, 1 )
 light_mask = 2
-material = SubResource( 49 )
+material = SubResource( 52 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 normal_map = ExtResource( 2 )

@@ -1,25 +1,25 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/generator/Generator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/ui/background/Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/game_camera.gd" type="Script" id=4]
 [ext_resource path="res://src/ui/score_counter/ScoreCounter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/ui/predictor/Predictor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/bars.png" type="Texture" id=7]
 
-[sub_resource type="VisualShaderNodeTexture" id=2]
+[sub_resource type="VisualShaderNodeTexture" id=1]
 source = 1
 
-[sub_resource type="VisualShaderNodeInput" id=3]
+[sub_resource type="VisualShaderNodeInput" id=2]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeColorConstant" id=4]
+[sub_resource type="VisualShaderNodeColorConstant" id=3]
 constant = Color( 0, 0, 0, 1 )
 
-[sub_resource type="VisualShaderNodeVectorScalarMix" id=5]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 1, 1, 1 ), 2, 0.25 ]
+[sub_resource type="VisualShaderNodeVectorScalarMix" id=4]
 
-[sub_resource type="VisualShader" id=6]
+[sub_resource type="VisualShader" id=5]
 code = "shader_type canvas_item;
 
 
@@ -50,7 +50,7 @@ void fragment() {
 	}
 
 // VectorScalarMix:5
-	float n_in5p2 = 0.25000;
+	float n_in5p2 = 0.50000;
 	vec3 n_out5p0;
 	n_out5p0 = mix( n_out4p0 , n_out2p0 , n_in5p2 );
 
@@ -64,35 +64,34 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -250, 155 )
+graph_offset = Vector2( -142, 98 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 760, 160 )
-nodes/fragment/2/node = SubResource( 2 )
+nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( 220, 160 )
-nodes/fragment/3/node = SubResource( 3 )
+nodes/fragment/3/node = SubResource( 2 )
 nodes/fragment/3/position = Vector2( -60, 180 )
-nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/node = SubResource( 3 )
 nodes/fragment/4/position = Vector2( 149, 326 )
-nodes/fragment/5/node = SubResource( 5 )
+nodes/fragment/5/node = SubResource( 4 )
 nodes/fragment/5/position = Vector2( 460, 260 )
 nodes/fragment/connections = PoolIntArray( 3, 0, 2, 0, 4, 0, 5, 0, 2, 0, 5, 1, 5, 0, 0, 0 )
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="Environment" id=7]
 background_mode = 4
 glow_enabled = true
 
 [node name="Game" type="Node2D"]
 
 [node name="CounterBars" type="Node2D" parent="."]
-position = Vector2( 352, 536 )
+position = Vector2( 352, 548 )
 scale = Vector2( 0.16, 0.16 )
 
 [node name="Node2D" type="Node2D" parent="CounterBars"]
-scale = Vector2( 1, 1 )
 z_index = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CounterBars/Node2D"]
@@ -114,24 +113,27 @@ __meta__ = {
 }
 
 [node name="ScoreCounter" parent="." instance=ExtResource( 5 )]
-position = Vector2( 720, 192 )
+position = Vector2( 720, 204 )
 scale = Vector2( 0.3, 0.3 )
+
+[node name="Predictor" parent="." instance=ExtResource( 6 )]
+position = Vector2( 720, 300 )
+z_as_relative = false
 
 [node name="PredictorBars" type="Node2D" parent="."]
 position = Vector2( 352, 536 )
 scale = Vector2( 0.16, 0.16 )
 
 [node name="Node2D" type="Node2D" parent="PredictorBars"]
-scale = Vector2( 1, 1 )
 z_index = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="PredictorBars/Node2D"]
 self_modulate = Color( 0.247059, 0.247059, 0.247059, 0.843137 )
 light_mask = 3
 margin_left = 1614.0
-margin_top = -2325.0
+margin_top = -2250.0
 margin_right = 2987.0
-margin_bottom = 321.0
+margin_bottom = -950.0
 texture = ExtResource( 7 )
 draw_center = false
 region_rect = Rect2( 0, 0, 192, 192 )
@@ -144,15 +146,14 @@ __meta__ = {
 }
 
 [node name="Node2D2" type="Node2D" parent="PredictorBars"]
-scale = Vector2( 1, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="PredictorBars/Node2D2"]
 light_mask = 3
-material = SubResource( 7 )
+material = SubResource( 6 )
 margin_left = 1675.0
-margin_top = -1975.0
+margin_top = -1900.0
 margin_right = 2925.0
-margin_bottom = 262.0
+margin_bottom = -1000.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -162,7 +163,6 @@ position = Vector2( 352, 536 )
 scale = Vector2( 0.16, 0.16 )
 
 [node name="Node2D" type="Node2D" parent="GameBars"]
-scale = Vector2( 1, 1 )
 z_index = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="GameBars/Node2D"]
@@ -184,11 +184,10 @@ __meta__ = {
 }
 
 [node name="Node2D2" type="Node2D" parent="GameBars"]
-scale = Vector2( 1, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="GameBars/Node2D2"]
 light_mask = 3
-material = SubResource( 7 )
+material = SubResource( 6 )
 margin_left = -12.0
 margin_top = -3263.0
 margin_right = 1614.0
@@ -214,7 +213,7 @@ z_index = -1
 _bricks_folder = "res://src/brick/bricks"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
+environment = SubResource( 7 )
 
 [node name="GameCamera" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
@@ -222,3 +221,4 @@ current = true
 script = ExtResource( 4 )
 
 [node name="Shaker" type="Tween" parent="GameCamera"]
+[connection signal="queue_updated" from="Generator" to="Predictor" method="_on_Generator_queue_updated"]
