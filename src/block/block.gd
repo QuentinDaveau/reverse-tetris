@@ -5,7 +5,7 @@ const SCORE_SPEED_INCREASE: float = 200.0
 
 const MAX_REPULSE_DIST: float = 200.0
 const MAX_SHAKE_DIST: float = 200.0
-const REPULSE_POWER: float = 15.0
+const REPULSE_POWER: float = 20.0
 const CAMERA_SHAKE_POWER: float = 3.0
 
 var _explode_delay: float = 0.2
@@ -15,10 +15,10 @@ var _repulse_shake: float = 0.0
 
 
 func _process(delta: float) -> void:
-	if _repulse_displacement.length() > 0.05:
-		_repulse_displacement = lerp(_repulse_displacement, Vector2.ZERO, 0.08)
+	if _repulse_displacement.length() > 0.005:
+		_repulse_displacement = lerp(_repulse_displacement, Vector2.ZERO, 0.15)
 		$Sprite.position = _repulse_displacement
-	if abs($Sprite.rotation) > 0.001:
+	if abs($Sprite.rotation) > 0.0001:
 		_repulse_shake = lerp(_repulse_shake, 0.0, 0.2)
 		$Sprite.rotation = _repulse_shake
 
@@ -32,7 +32,7 @@ func repulse(origin: Vector2) -> void:
 	if shake_power <= 0:
 		return
 	randomize()
-	_repulse_shake += (randf() - 0.5) * shake_power * PI/2
+	_repulse_shake += (randf() - 0.5) * shake_power * PI/4
 	$Sprite.rotation = _repulse_shake
 	
 	var power = (MAX_REPULSE_DIST - origin.distance_to(global_position)) / MAX_REPULSE_DIST
@@ -58,13 +58,13 @@ func update_position(new_position: Vector2, wait_time: float) -> void:
 		_move_speed / 3, Tween.TRANS_QUINT, Tween.EASE_OUT)
 	$Tween.interpolate_property(self, "scale:x", 0.5, 1, 
 		2 * _move_speed / 3, Tween.TRANS_BACK, Tween.EASE_OUT, _move_speed / 3)
-	$TrailParticles.emitting = true
+#	$TrailParticles.emitting = true
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
-	$TrailParticles.emitting = false
+#	$TrailParticles.emitting = false
 
 
-func explode(explosion_color: Color, limit_left: float, limit_right: float, limit_bottom: float) -> void:
+func explode(explosion_color: Color, limit_left: float, limit_right: float, limit_bottom: float, limit_top: float) -> void:
 	$Light2D.color = explosion_color
 	$ColorRect.color = explosion_color
 	randomize()
@@ -81,6 +81,7 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	$ExplosionParticles.get_process_material().set_shader_param("max_left", limit_left)
 	$ExplosionParticles.get_process_material().set_shader_param("max_right", limit_right)
 	$ExplosionParticles.get_process_material().set_shader_param("max_bottom", limit_bottom)
+	$ExplosionParticles.get_process_material().set_shader_param("max_top", limit_top)
 	$Sprite.scale = Vector2.ONE * 0.5
 	$Light2D.enabled = true
 	$ColorRect.visible = true

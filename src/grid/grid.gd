@@ -21,13 +21,14 @@ var _block_move_delay: float = 0.04
 
 var _highlighted_blocks: Array = []
 
+var lost = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	$Neon.scale = Vector2(_rows * _cell_size / 512, _columns * _cell_size / 1024)
 	$Neon.position = Vector2(128 - _cell_size / 2, _cell_size / 2)
-	
 	
 	for i in range(_columns):
 		cells.append([])
@@ -81,6 +82,8 @@ func shoot_brick(brick: Brick, row: int) -> bool:
 	for block in brick.get_blocks():
 		neighbours.append_array(_find_neighbour(Vector2(hit_position.x + block.y, int(_rows + hit_position.y + block.x) % _rows)))
 	for pos in neighbours:
+		if pos.x >= _columns - 1:
+			continue
 		_destroy_block(Vector2(pos.x, pos.y), brick.get_blocks_color())
 		cells[pos.x][pos.y] = 0
 	_push_wall(1)
@@ -111,7 +114,7 @@ func update_player_proj() -> void:
 
 func _push_wall(amount: int) -> void:
 	if amount == 1:
-		if _wall_delay < 2:
+		if _wall_delay < 1:
 			_wall_delay += 1
 			return
 		else:
@@ -121,6 +124,12 @@ func _push_wall(amount: int) -> void:
 		for i in range(_columns):
 			for j in range(_rows):
 				if cells[i][j] is Block:
+					if i <= 2:
+						lost = true
+					if lost:
+						yield(get_tree().create_timer(0.03), "timeout")
+						_destroy_block(Vector2(i,j), Color.white)
+						continue
 					if first_move == -1:
 						first_move = i
 					cells[i - 1][j] = cells[i][j]
@@ -150,7 +159,8 @@ func _destroy_block(grid_position: Vector2, explosion_color: Color) -> void:
 	cells[grid_position.x][grid_position.y].explode(explosion_color, 
 			(grid_position.y * _cell_size) + (_cell_size / 2),
 			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
-			(grid_position.x * _cell_size) - (_cell_size / 2))
+			(grid_position.x * _cell_size) - (_cell_size * 1.5),
+			((_columns - grid_position.x) * _cell_size) - (_cell_size * 1.5))
 	cells[grid_position.x][grid_position.y] = 0
 
 
@@ -182,7 +192,7 @@ func _check_and_move(current_position: Vector2, new_position: Vector2) -> Vector
 	if not cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows]:
 		cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows] = cells[current_position.x][current_position.y]
 		cells[current_position.x][current_position.y] = 0
-		_push_wall(1)
+#		_push_wall(1)
 		return Vector2(int(_columns + new_position.x) % _columns, int(_rows + new_position.y) % _rows)
 	else:
 		return current_position
