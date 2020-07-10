@@ -13,7 +13,10 @@ func set_speed(speed: float) -> void:
 		emitting = true
 	
 	lifetime = (0.5 / speed_factor)
+	var particle_scale: float = (0.15 * speed_factor) + 0.1
+	if particle_scale > 0.3:
+		particle_scale = 0.3
 	particle_material.set_param(ParticlesMaterial.PARAM_SCALE, 
-			(0.15 * speed_factor) + 0.1)
+			particle_scale)
 	particle_material.set_param(ParticlesMaterial.PARAM_INITIAL_LINEAR_VELOCITY, 
 			2000 * speed_factor)

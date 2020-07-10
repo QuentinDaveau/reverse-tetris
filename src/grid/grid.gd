@@ -8,6 +8,8 @@ export(String, FILE, "*.tscn") var _player_path: String
 export(String, FILE, "*.tscn") var _block_path: String
 export(String, FILE, "*.tscn") var _smoke_spawner_path: String
 
+export(bool) var _is_demo: bool = false
+
 onready var _block = load(_block_path)
 onready var _smoke_spawner = load(_smoke_spawner_path)
 
@@ -35,8 +37,8 @@ func _ready() -> void:
 		for j in range(_rows):
 			cells[i].append(0)
 	var player: Player = load(_player_path).instance()
-	player.setup(Vector2(0, round(_rows / 2)), self, get_parent().get_node("Generator"))
-	cells[0][round(_rows / 2)] = 2
+	player.setup(Vector2(0, round(_rows / 2.0)), self, get_parent().get_node("Generator"))
+	cells[0][round(_rows / 2.0)] = 2
 	_player = player
 	add_child(player)
 	_push_wall(3)
@@ -91,7 +93,7 @@ func shoot_brick(brick: Brick, row: int) -> bool:
 
 
 func update_player_proj() -> void:
-	var pos = project_brick(_player._current_brick, _player._current_position.y)
+	var pos = project_brick(_player._current_brick, int(_player._current_position.y))
 	var blocks = _player._current_brick.get_blocks()
 	var models = _player._current_brick.get_block_models()
 	for i in range(blocks.size()):
@@ -146,6 +148,8 @@ func _instance_block(grid_position: Vector2, block_show_delay) -> Block:
 	if cells[grid_position.x][grid_position.y] != 0:
 		return null
 	var block : Block = _block.instance()
+	if _is_demo:
+		block.get_node("Sprite").get_material().set_shader_param("Limit", false)
 	add_child(block)
 	block.global_position = _convert_to_world_position(grid_position)
 	block.complete_spawn(block_show_delay)
@@ -179,6 +183,8 @@ func _find_neighbour(search_position: Vector2) -> PoolVector2Array:
 	var neighbours: PoolVector2Array = []
 	for i in range(-1, 3, 2):
 		if search_position.x + i >= _columns:
+			continue
+		if search_position.x + i <= 0:
 			continue
 		if cells[search_position.x + i][search_position.y] is Block:
 			neighbours.append(Vector2(search_position.x + i, search_position.y))

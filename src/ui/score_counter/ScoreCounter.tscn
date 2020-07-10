@@ -29,6 +29,7 @@ scale = 0.3
 color_ramp = SubResource( 2 )
 
 [node name="ScoreCounter" type="Node2D"]
+light_mask = 1027
 script = ExtResource( 3 )
 
 [node name="ScoreWheel" parent="." instance=ExtResource( 2 )]
@@ -51,7 +52,7 @@ decimal = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 self_modulate = Color( 0.384314, 0.984314, 1, 0.439216 )
-light_mask = 15
+light_mask = 1027
 margin_left = -336.0
 margin_top = -64.0
 margin_right = 336.0
@@ -67,7 +68,7 @@ __meta__ = {
 
 [node name="SparkParticles" type="Particles2D" parent="."]
 self_modulate = Color( 15, 15, 15, 1 )
-light_mask = 7
+light_mask = 1027
 position = Vector2( 332.785, 58.0826 )
 z_index = 5
 emitting = false
@@ -79,31 +80,32 @@ texture = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="Separator" type="Node2D" parent="."]
+light_mask = 1027
 
 [node name="Sprite" type="Sprite" parent="Separator"]
 self_modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
-light_mask = 15
+light_mask = 1027
 position = Vector2( -204, -1.90735e-06 )
 scale = Vector2( 0.857628, 2.06452 )
 texture = ExtResource( 6 )
 
 [node name="Sprite2" type="Sprite" parent="Separator"]
 self_modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
-light_mask = 15
+light_mask = 1027
 position = Vector2( -67.775, -1.90735e-06 )
 scale = Vector2( 0.857628, 2.06452 )
 texture = ExtResource( 6 )
 
 [node name="Sprite3" type="Sprite" parent="Separator"]
 self_modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
-light_mask = 15
+light_mask = 1027
 position = Vector2( 68.0916, -1.90735e-06 )
 scale = Vector2( 0.857628, 2.06452 )
 texture = ExtResource( 6 )
 
 [node name="Sprite4" type="Sprite" parent="Separator"]
 self_modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
-light_mask = 15
+light_mask = 1027
 position = Vector2( 204.735, -1.90735e-06 )
 scale = Vector2( 0.857628, 2.06452 )
 texture = ExtResource( 6 )
@@ -115,7 +117,7 @@ texture = ExtResource( 7 )
 offset = Vector2( 0, -200 )
 texture_scale = 0.4
 energy = 0.8
-range_item_cull_mask = 8
+range_item_cull_mask = 1024
 
 [node name="Light2D2" type="Light2D" parent="."]
 position = Vector2( 337.119, 0 )
@@ -124,4 +126,4 @@ texture = ExtResource( 7 )
 offset = Vector2( 0, -200 )
 texture_scale = 0.4
 energy = 0.8
-range_item_cull_mask = 8
+range_item_cull_mask = 1024

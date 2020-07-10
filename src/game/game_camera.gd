@@ -6,6 +6,8 @@ export(float) var _shake_damp: float = 0.7
 export(float) var _shake_noise: float = 0.1
 export(float) var _shake_speed: float = 0.03
 
+export(bool) var _shake_enabled: bool = true
+
 var _shake_amount: Vector2 = Vector2.ZERO
 
 
@@ -14,6 +16,8 @@ func _ready() -> void:
 
 
 func add_shake(amount: float) -> void:
+	if not _shake_enabled:
+		return
 	randomize()
 	var vec_amount := (Vector2(randf(), randf()) - Vector2(0.5, 0.5)) * 2.0 * amount
 	

@@ -8,6 +8,7 @@ var _grid: Node2D
 var _current_brick: Brick
 var _generator: Generator
 var _player_slots: Node2D
+var _exploding: bool = false
 
 
 func setup(start_position: Vector2, grid: Node2D, generator: Generator) -> void:
@@ -38,11 +39,15 @@ func _process(delta: float) -> void:
 		_current_brick.rotate()
 		_grid.update_player_proj()
 	if Input.is_action_just_pressed("ui_accept"):
+		if _exploding:
+			return
 		_grid.shoot_brick(_current_brick, _current_position.y)
 		var exploding_brick = _current_brick
 		exploding_brick.explode()
-		_current_brick = _generator.pick_brick()
+		_exploding = true
 		yield(exploding_brick, "exploded")
+		_current_brick = _generator.pick_brick()
+		_exploding = false
 		for block in _current_brick.get_block_models():
 			_grid.add_child(block)
 		_grid.update_player_proj()

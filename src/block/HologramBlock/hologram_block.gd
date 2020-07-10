@@ -15,6 +15,10 @@ func _ready() -> void:
 	_spawning = false
 
 
+func disable_visible_limit() -> void:
+	$Sprite.get_material().set_shader_param("Limit", false)
+
+
 func move(aimed_position: Vector2) -> void:
 	var speed = 0.1
 	if _spawning:

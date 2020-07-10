@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://assets/sprites/block.png" type="Texture" id=1]
 [ext_resource path="res://src/block/block.gd" type="Script" id=2]
@@ -94,60 +94,65 @@ texture = SubResource( 26 )
 default_input_values = [ 0, 0.0, 1, 1.5 ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=45]
+[sub_resource type="VisualShaderNodeInput" id=29]
 output_port_for_preview = 0
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=46]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=30]
 output_port_for_preview = 0
 
-[sub_resource type="VisualShaderNodeCompare" id=47]
-output_port_for_preview = 0
+[sub_resource type="VisualShaderNodeCompare" id=31]
 default_input_values = [ 0, 0.0, 1, 0.34, 2, 1e-05 ]
 function = 2
 
-[sub_resource type="VisualShaderNodeCompare" id=48]
-output_port_for_preview = 0
+[sub_resource type="VisualShaderNodeCompare" id=32]
 default_input_values = [ 0, 0.0, 1, 0.6, 2, 1e-05 ]
 function = 4
 
-[sub_resource type="VisualShaderNodeScalarOp" id=49]
+[sub_resource type="VisualShaderNodeScalarOp" id=33]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarSwitch" id=50]
+[sub_resource type="VisualShaderNodeScalarSwitch" id=34]
 
-[sub_resource type="VisualShaderNodeScalarSwitch" id=51]
+[sub_resource type="VisualShaderNodeScalarSwitch" id=35]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=52]
+[sub_resource type="VisualShaderNodeScalarOp" id=36]
 operator = 2
 
-[sub_resource type="VisualShaderNodeCompare" id=53]
+[sub_resource type="VisualShaderNodeCompare" id=37]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.1, 1, 0.97, 2, 1e-05 ]
 function = 4
 
-[sub_resource type="VisualShaderNodeScalarSwitch" id=54]
+[sub_resource type="VisualShaderNodeScalarSwitch" id=38]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=55]
+[sub_resource type="VisualShaderNodeScalarOp" id=39]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=29]
+[sub_resource type="VisualShaderNodeBooleanUniform" id=40]
+uniform_name = "Limit"
+
+[sub_resource type="VisualShaderNodeScalarSwitch" id=41]
+default_input_values = [ 0, false, 1, 1.0, 2, 1.0 ]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=42]
 output_port_for_preview = 0
 
-[sub_resource type="VisualShaderNodeInput" id=30]
+[sub_resource type="VisualShaderNodeInput" id=43]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=31]
+[sub_resource type="VisualShaderNodeScalarUniform" id=44]
 uniform_name = "Speed"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=32]
+[sub_resource type="VisualShaderNodeScalarOp" id=45]
 operator = 2
 
-[sub_resource type="VisualShader" id=33]
+[sub_resource type="VisualShader" id=46]
 code = "shader_type canvas_item;
 uniform vec4 HighlightColor : hint_color;
 uniform float Speed;
-uniform sampler2D tex_frg_4;uniform sampler2D tex_frg_13;
+uniform sampler2D tex_frg_4;uniform sampler2D tex_frg_13;uniform bool Limit;
+
 
 
 void vertex() {
@@ -293,6 +298,10 @@ void fragment() {
 	float n_out25p0;
 	n_out25p0 = clamp( n_out22p0, n_in25p1, n_in25p2 );
 
+// BooleanUniform:55
+	bool n_out55p0;
+	n_out55p0 = Limit;
+
 // Input:41
 	vec3 n_out41p0;
 	n_out41p0 = vec3(SCREEN_UV,0.0);
@@ -304,6 +313,24 @@ void fragment() {
 	n_out43p0 = n_out41p0.x;
 	n_out43p1 = n_out41p0.y;
 	n_out43p2 = n_out41p0.z;
+
+// Compare:52
+	float n_in52p1 = 0.97000;
+	bool n_out52p0;
+	n_out52p0=n_out43p1<n_in52p1;
+
+// ScalarSwitch:53
+	float n_in53p1 = 1.00000;
+	float n_in53p2 = 0.00000;
+	float n_out53p0;
+	if(n_out52p0)
+	{
+		n_out53p0=n_in53p1;
+	}
+	else
+	{
+		n_out53p0=n_in53p2;
+	}
 
 // Compare:45
 	float n_in45p1 = 0.34000;
@@ -347,29 +374,23 @@ void fragment() {
 
 // ScalarOp:47
 	float n_out47p0;
-	n_out47p0 = n_out25p0 * n_out51p0;
+	n_out47p0 = n_out53p0 * n_out51p0;
 
-// Compare:52
-	float n_in52p1 = 0.97000;
-	bool n_out52p0;
-	n_out52p0=n_out43p1<n_in52p1;
-
-// ScalarSwitch:53
-	float n_in53p1 = 1.00000;
-	float n_in53p2 = 0.00000;
-	float n_out53p0;
-	if(n_out52p0)
+// ScalarSwitch:56
+	float n_in56p2 = 1.00000;
+	float n_out56p0;
+	if(n_out55p0)
 	{
-		n_out53p0=n_in53p1;
+		n_out56p0=n_out47p0;
 	}
 	else
 	{
-		n_out53p0=n_in53p2;
+		n_out56p0=n_in56p2;
 	}
 
 // ScalarOp:54
 	float n_out54p0;
-	n_out54p0 = n_out47p0 * n_out53p0;
+	n_out54p0 = n_out25p0 * n_out56p0;
 
 // Output:0
 	COLOR.rgb = n_out32p0;
@@ -382,7 +403,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -88.25, 192.75 )
+graph_offset = Vector2( 1948.5, 442 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 2520, 460 )
@@ -390,13 +411,13 @@ nodes/fragment/2/node = SubResource( 12 )
 nodes/fragment/2/position = Vector2( -40, 300 )
 nodes/fragment/4/node = SubResource( 27 )
 nodes/fragment/4/position = Vector2( 700, 60 )
-nodes/fragment/6/node = SubResource( 29 )
+nodes/fragment/6/node = SubResource( 42 )
 nodes/fragment/6/position = Vector2( 960, 280 )
-nodes/fragment/7/node = SubResource( 30 )
+nodes/fragment/7/node = SubResource( 43 )
 nodes/fragment/7/position = Vector2( -40, 220 )
-nodes/fragment/8/node = SubResource( 31 )
+nodes/fragment/8/node = SubResource( 44 )
 nodes/fragment/8/position = Vector2( -40, 120 )
-nodes/fragment/9/node = SubResource( 32 )
+nodes/fragment/9/node = SubResource( 45 )
 nodes/fragment/9/position = Vector2( 160, 140 )
 nodes/fragment/10/node = SubResource( 1 )
 nodes/fragment/10/position = Vector2( 460, 160 )
@@ -442,45 +463,50 @@ nodes/fragment/39/node = SubResource( 24 )
 nodes/fragment/39/position = Vector2( 1760, 160 )
 nodes/fragment/40/node = SubResource( 28 )
 nodes/fragment/40/position = Vector2( 1520, 220 )
-nodes/fragment/41/node = SubResource( 45 )
+nodes/fragment/41/node = SubResource( 29 )
 nodes/fragment/41/position = Vector2( 1580, 780 )
-nodes/fragment/43/node = SubResource( 46 )
+nodes/fragment/43/node = SubResource( 30 )
 nodes/fragment/43/position = Vector2( 1820, 800 )
-nodes/fragment/45/node = SubResource( 47 )
-nodes/fragment/45/position = Vector2( 2080, 580 )
-nodes/fragment/46/node = SubResource( 48 )
+nodes/fragment/45/node = SubResource( 31 )
+nodes/fragment/45/position = Vector2( 2080, 680 )
+nodes/fragment/46/node = SubResource( 32 )
 nodes/fragment/46/position = Vector2( 2080, 840 )
-nodes/fragment/47/node = SubResource( 49 )
+nodes/fragment/47/node = SubResource( 33 )
 nodes/fragment/47/position = Vector2( 2620, 700 )
-nodes/fragment/49/node = SubResource( 50 )
-nodes/fragment/49/position = Vector2( 2260, 640 )
-nodes/fragment/50/node = SubResource( 51 )
+nodes/fragment/49/node = SubResource( 34 )
+nodes/fragment/49/position = Vector2( 2240, 740 )
+nodes/fragment/50/node = SubResource( 35 )
 nodes/fragment/50/position = Vector2( 2260, 900 )
-nodes/fragment/51/node = SubResource( 52 )
+nodes/fragment/51/node = SubResource( 36 )
 nodes/fragment/51/position = Vector2( 2440, 840 )
-nodes/fragment/52/node = SubResource( 53 )
+nodes/fragment/52/node = SubResource( 37 )
 nodes/fragment/52/position = Vector2( 2080, 1120 )
-nodes/fragment/53/node = SubResource( 54 )
+nodes/fragment/53/node = SubResource( 38 )
 nodes/fragment/53/position = Vector2( 2280, 1120 )
-nodes/fragment/54/node = SubResource( 55 )
-nodes/fragment/54/position = Vector2( 2823.71, 851.5 )
-nodes/fragment/connections = PoolIntArray( 8, 0, 9, 0, 7, 0, 9, 1, 2, 0, 10, 1, 10, 0, 4, 0, 11, 0, 10, 0, 9, 0, 12, 1, 2, 0, 14, 0, 12, 0, 14, 1, 14, 0, 13, 0, 13, 0, 6, 1, 6, 0, 15, 2, 9, 0, 16, 0, 16, 0, 11, 1, 17, 0, 18, 2, 18, 1, 21, 2, 18, 0, 21, 1, 4, 0, 6, 0, 15, 0, 21, 0, 15, 0, 23, 0, 23, 0, 22, 0, 24, 0, 22, 1, 22, 0, 25, 0, 18, 1, 24, 0, 21, 0, 32, 1, 32, 0, 0, 0, 28, 0, 37, 0, 39, 0, 32, 0, 28, 0, 35, 0, 35, 0, 36, 1, 37, 0, 38, 0, 38, 0, 39, 0, 36, 0, 38, 1, 18, 1, 40, 0, 40, 0, 39, 1, 41, 0, 43, 0, 25, 0, 47, 0, 43, 0, 45, 0, 43, 0, 46, 0, 45, 0, 49, 0, 46, 0, 50, 0, 49, 0, 51, 0, 50, 0, 51, 1, 51, 0, 47, 1, 52, 0, 53, 0, 53, 0, 54, 1, 47, 0, 54, 0, 54, 0, 0, 1, 43, 1, 52, 0 )
+nodes/fragment/54/node = SubResource( 39 )
+nodes/fragment/54/position = Vector2( 2320, 520 )
+nodes/fragment/55/node = SubResource( 40 )
+nodes/fragment/55/position = Vector2( 2300, 640 )
+nodes/fragment/56/node = SubResource( 41 )
+nodes/fragment/56/position = Vector2( 2800, 640 )
+nodes/fragment/connections = PoolIntArray( 8, 0, 9, 0, 7, 0, 9, 1, 2, 0, 10, 1, 10, 0, 4, 0, 11, 0, 10, 0, 9, 0, 12, 1, 2, 0, 14, 0, 12, 0, 14, 1, 14, 0, 13, 0, 13, 0, 6, 1, 6, 0, 15, 2, 9, 0, 16, 0, 16, 0, 11, 1, 17, 0, 18, 2, 18, 1, 21, 2, 18, 0, 21, 1, 4, 0, 6, 0, 15, 0, 21, 0, 15, 0, 23, 0, 23, 0, 22, 0, 24, 0, 22, 1, 22, 0, 25, 0, 18, 1, 24, 0, 21, 0, 32, 1, 32, 0, 0, 0, 28, 0, 37, 0, 39, 0, 32, 0, 28, 0, 35, 0, 35, 0, 36, 1, 37, 0, 38, 0, 38, 0, 39, 0, 36, 0, 38, 1, 18, 1, 40, 0, 40, 0, 39, 1, 41, 0, 43, 0, 43, 0, 45, 0, 43, 0, 46, 0, 45, 0, 49, 0, 46, 0, 50, 0, 49, 0, 51, 0, 50, 0, 51, 1, 52, 0, 53, 0, 54, 0, 0, 1, 43, 1, 52, 0, 51, 0, 47, 1, 25, 0, 54, 0, 53, 0, 47, 0, 55, 0, 56, 0, 47, 0, 56, 1, 56, 0, 54, 1 )
 
-[sub_resource type="ShaderMaterial" id=34]
+[sub_resource type="ShaderMaterial" id=47]
 resource_local_to_scene = true
 render_priority = 1
-shader = SubResource( 33 )
+shader = SubResource( 46 )
 shader_param/HighlightColor = Color( 0, 0, 0, 1 )
 shader_param/Speed = 0.025
+shader_param/Limit = true
 
-[sub_resource type="Gradient" id=35]
+[sub_resource type="Gradient" id=48]
 offsets = PoolRealArray( 0.785185, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.643137, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=36]
-gradient = SubResource( 35 )
+[sub_resource type="GradientTexture" id=49]
+gradient = SubResource( 48 )
 
-[sub_resource type="ParticlesMaterial" id=37]
+[sub_resource type="ParticlesMaterial" id=50]
 lifetime_randomness = 0.17
 emission_shape = 2
 emission_box_extents = Vector3( 15, 15, 1 )
@@ -491,15 +517,15 @@ initial_velocity = 2.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.05
-color_ramp = SubResource( 36 )
+color_ramp = SubResource( 49 )
 
-[sub_resource type="Gradient" id=38]
+[sub_resource type="Gradient" id=51]
 colors = PoolColorArray( 1, 1, 1, 0.811765, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=39]
-gradient = SubResource( 38 )
+[sub_resource type="GradientTexture" id=52]
+gradient = SubResource( 51 )
 
-[sub_resource type="ParticlesMaterial" id=40]
+[sub_resource type="ParticlesMaterial" id=53]
 lifetime_randomness = 0.83
 emission_shape = 2
 emission_box_extents = Vector3( 14, 14, 1 )
@@ -512,9 +538,9 @@ initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.05
-color_ramp = SubResource( 39 )
+color_ramp = SubResource( 52 )
 
-[sub_resource type="Shader" id=41]
+[sub_resource type="Shader" id=54]
 code = "shader_type particles;
 uniform vec3 direction;
 uniform float spread;
@@ -732,16 +758,16 @@ void vertex() {
 
 "
 
-[sub_resource type="Gradient" id=42]
+[sub_resource type="Gradient" id=55]
 offsets = PoolRealArray( 0.311111, 1 )
 colors = PoolColorArray( 1, 0.968627, 0.815686, 1, 1, 0.305882, 0, 0 )
 
-[sub_resource type="GradientTexture" id=43]
-gradient = SubResource( 42 )
+[sub_resource type="GradientTexture" id=56]
+gradient = SubResource( 55 )
 
-[sub_resource type="ShaderMaterial" id=44]
+[sub_resource type="ShaderMaterial" id=57]
 resource_local_to_scene = true
-shader = SubResource( 41 )
+shader = SubResource( 54 )
 shader_param/direction = Vector3( 0, 0, 0 )
 shader_param/spread = 180.0
 shader_param/flatness = 0.0
@@ -778,7 +804,7 @@ shader_param/max_left = null
 shader_param/max_right = null
 shader_param/max_bottom = null
 shader_param/max_top = null
-shader_param/color_ramp = SubResource( 43 )
+shader_param/color_ramp = SubResource( 56 )
 
 [node name="Block" type="Node2D" groups=[
 "Block",
@@ -789,7 +815,7 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 7
-material = SubResource( 34 )
+material = SubResource( 47 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 normal_map = ExtResource( 3 )
@@ -808,7 +834,7 @@ emitting = false
 amount = 20
 lifetime = 0.2
 local_coords = false
-process_material = SubResource( 37 )
+process_material = SubResource( 50 )
 texture = ExtResource( 6 )
 
 [node name="DustParticles" type="Particles2D" parent="."]
@@ -819,7 +845,7 @@ lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
 local_coords = false
-process_material = SubResource( 40 )
+process_material = SubResource( 53 )
 texture = ExtResource( 6 )
 
 [node name="ExplosionParticles" type="Particles2D" parent="."]
@@ -829,7 +855,7 @@ amount = 40
 lifetime = 2.0
 one_shot = true
 explosiveness = 0.99
-process_material = SubResource( 44 )
+process_material = SubResource( 57 )
 texture = ExtResource( 5 )
 
 [node name="Light2D" type="Light2D" parent="."]

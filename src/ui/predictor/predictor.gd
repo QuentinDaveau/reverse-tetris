@@ -22,6 +22,7 @@ func _on_Generator_queue_updated(queue: Array) -> void:
 			moy += pos
 		moy /= blocks_pos.size()
 		_next_brick.append(block_d)
+		block_d.disable_visible_limit()
 		add_child(block_d)
 		block_d.position = (blocks_pos[i] - moy) * 32 * Vector2(1, -1)
 		i += 1
