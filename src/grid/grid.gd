@@ -49,9 +49,6 @@ func move(direction: String, entity_position: Vector2) -> Vector2:
 	var col := entity_position.x
 	var row := entity_position.y
 	
-#	if not cells[col][row]:
-#		return entity_position
-	
 	match direction:
 		"right":
 			return _check_and_move(entity_position, Vector2(col, row + 1))
@@ -128,7 +125,10 @@ func _push_wall(amount: int) -> void:
 				if cells[i][j] is Block:
 					if i <= 2:
 						lost = true
+						_player.disable_input()
 					if lost:
+						if i >= _columns - 1:
+							continue
 						yield(get_tree().create_timer(0.03), "timeout")
 						_destroy_block(Vector2(i,j), Color.white)
 						continue
@@ -138,6 +138,8 @@ func _push_wall(amount: int) -> void:
 					cells[i][j].update_position(_convert_to_world_position(Vector2(i - 1, j)), (i - first_move) * _block_move_delay)
 					cells[i][j] = 0
 			if i == _columns - 1:
+				if lost:
+					continue
 				for j in range(_rows):
 					if first_move == -1:
 						first_move = i

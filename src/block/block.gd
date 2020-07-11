@@ -74,10 +74,11 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
 	
-	ScoreManager.get_counter().add_speed(SCORE_SPEED_INCREASE)
+	var s_counter = get_parent().get_parent().get_score_counter().add_speed(SCORE_SPEED_INCREASE)
+	
 	for block in get_tree().get_nodes_in_group("Block"):
 		block.repulse(global_position)
-	CameraManager.get_camera().add_shake(CAMERA_SHAKE_POWER)
+	get_parent().get_parent().get_camera().add_shake(CAMERA_SHAKE_POWER)
 	$ExplosionParticles.get_process_material().set_shader_param("max_left", limit_left)
 	$ExplosionParticles.get_process_material().set_shader_param("max_right", limit_right)
 	$ExplosionParticles.get_process_material().set_shader_param("max_bottom", limit_bottom)

@@ -1,6 +1,7 @@
 extends Node2D
 
 const SEP_DIST: int = 200
+const BLOCK_SCENE = preload("res://src/block/HologramBlock/HologramBlock.tscn")
 
 var _generator: Generator
 
@@ -15,7 +16,8 @@ func _on_Generator_queue_updated(queue: Array) -> void:
 	_next_brick.clear()
 	var i: int = 0
 	for block in queue[0].get_block_models():
-		var block_d: Node2D = block.duplicate()
+		var block_d: Node2D = BLOCK_SCENE.instance()
+		block_d.set_color(queue[0].get_blocks_color())
 		var blocks_pos = queue[0].get_blocks()
 		var moy := Vector2.ZERO
 		for pos in blocks_pos:

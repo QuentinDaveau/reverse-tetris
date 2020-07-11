@@ -3,6 +3,8 @@ class_name Generator
 
 signal queue_updated(queue)
 
+const BLOCK_SCENE = preload("res://src/block/HologramBlock/HologramBlock.tscn")
+
 export(String, DIR) var _bricks_folder: String
 
 var _bricks_instances: Array = []
@@ -44,12 +46,12 @@ func _charge_brick_paths() -> void:
 
 func _instance_random_brick() -> void:
 	var brick: Brick = _bricks_instances[randi()%_bricks_instances.size()].instance()
-	brick.setup()
+	brick.setup(BLOCK_SCENE)
 	
 	if _bricks_queue.size() > 0:
 		while brick.get_blocks() == _bricks_queue.back().get_blocks():
 			brick = _bricks_instances[randi()%_bricks_instances.size()].instance()
-			brick.setup()
+			brick.setup(BLOCK_SCENE)
 	
 	_bricks_queue.append(brick)
 	emit_signal("queue_updated", _bricks_queue)

@@ -9,17 +9,17 @@
 [ext_resource path="res://src/game/game_demo/game_demo_env.tres" type="Environment" id=7]
 [ext_resource path="res://src/ui/player_slots/PlayerSlots.tscn" type="PackedScene" id=8]
 
-[sub_resource type="VisualShaderNodeTexture" id=2]
+[sub_resource type="VisualShaderNodeTexture" id=1]
 output_port_for_preview = 0
 source = 1
 
-[sub_resource type="VisualShaderNodeScalarConstant" id=3]
+[sub_resource type="VisualShaderNodeScalarConstant" id=2]
 constant = 2.0
 
-[sub_resource type="VisualShaderNodeInput" id=4]
+[sub_resource type="VisualShaderNodeInput" id=3]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShader" id=5]
+[sub_resource type="VisualShader" id=4]
 code = "shader_type canvas_item;
 
 
@@ -60,16 +60,16 @@ void light() {
 graph_offset = Vector2( -707, 54 )
 mode = 1
 flags/light_only = false
-nodes/fragment/2/node = SubResource( 2 )
+nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( -220, 200 )
-nodes/fragment/3/node = SubResource( 3 )
+nodes/fragment/3/node = SubResource( 2 )
 nodes/fragment/3/position = Vector2( -480, 220 )
-nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/node = SubResource( 3 )
 nodes/fragment/4/position = Vector2( -520, 120 )
 nodes/fragment/connections = PoolIntArray( 3, 0, 2, 1, 4, 0, 2, 0, 2, 0, 0, 0 )
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
 
 [node name="GameDemo" type="Node2D"]
 position = Vector2( 0, 6.64819 )
@@ -81,7 +81,7 @@ margin_left = 344.0
 margin_top = 33.0
 margin_right = 776.0
 margin_bottom = 289.0
-color = Color( 0.0117647, 0.0117647, 0.0117647, 1 )
+color = Color( 0.0235294, 0.0235294, 0.0235294, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,7 +117,7 @@ z_index = 99
 
 [node name="ColorRect" type="ColorRect" parent="Blur"]
 light_mask = 0
-material = SubResource( 6 )
+material = SubResource( 5 )
 margin_left = 344.0
 margin_top = 40.0
 margin_right = 776.0

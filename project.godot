@@ -51,13 +51,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Reverse Tetris"
-run/main_scene="res://src/game/Game.tscn"
+run/main_scene="res://src/menu/MainMenu.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-CameraManager="*res://src/autoload/camera_manager.gd"
-ScoreManager="*res://src/autoload/score_manager.gd"
 
 [display]
 

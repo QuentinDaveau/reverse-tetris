@@ -3,19 +3,15 @@ class_name Brick
 
 signal exploded
 
-export(String, FILE, "*.tscn") var _block_path: String
 export(bool) var _can_rotate: bool = true
 export(PoolVector2Array) var _blocks: PoolVector2Array
 export(Color) var _blocks_color: Color
 
-var _block_instance: Resource
-
 var _block_models: Array = []
 
-func setup() -> void:
-	_block_instance = load(_block_path)
+func setup(block_scene) -> void:
 	for i in range(_blocks.size()):
-		_block_models.append(_block_instance.instance())
+		_block_models.append(block_scene.instance())
 	for block in _block_models:
 		block.set_color(_blocks_color)
 

@@ -4,13 +4,19 @@ extends Player
 func _ready() -> void:
 	randomize()
 	._ready()
+	for block in _current_brick.get_block_models():
+		block.disable_visible_limit()
 
 
-func _process(delta: float) -> void:
+func _manage_input() -> void:
 	return
 
 
 func _on_Timer_timeout() -> void:
+	if not _handle_input:
+		return
+	
+	
 	randomize()
 	var r := randi() % 12
 	match r:
@@ -25,6 +31,8 @@ func _on_Timer_timeout() -> void:
 			exploding_brick.explode()
 			_exploding = true
 			yield(exploding_brick, "exploded")
+			if not _handle_input:
+				return
 			_current_brick = _generator.pick_brick()
 			_exploding = false
 			for block in _current_brick.get_block_models():
@@ -40,5 +48,4 @@ func _on_Timer_timeout() -> void:
 			_current_position = _grid.move("right", _current_position)
 			_grid.update_player_proj()
 			_player_slots.set_player_position(_current_position.y)
-
 
