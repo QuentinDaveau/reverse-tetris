@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/game/game_demo/GameDemo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/title.png" type="Texture" id=2]
@@ -14,10 +14,116 @@
 [ext_resource path="res://src/menu/main_menu.gd" type="Script" id=12]
 [ext_resource path="res://src/menu/play_button.gd" type="Script" id=13]
 [ext_resource path="res://src/menu/quit_button.gd" type="Script" id=14]
+[ext_resource path="res://assets/ui/buttons_indication.png" type="Texture" id=15]
+[ext_resource path="res://src/menu/commands_panel.gd" type="Script" id=16]
+[ext_resource path="res://assets/ui/question_button.png" type="Texture" id=17]
+[ext_resource path="res://assets/ui/question_button_pressed.png" type="Texture" id=18]
+[ext_resource path="res://assets/ui/question_button_mask.bmp" type="BitMap" id=19]
+[ext_resource path="res://src/menu/question_button.gd" type="Script" id=20]
 
 [sub_resource type="ViewportTexture" id=1]
 flags = 4
 viewport_path = NodePath("Viewport")
+
+[sub_resource type="VisualShaderNodeTexture" id=2]
+source = 2
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=3]
+uniform_name = "amountHidden"
+
+[sub_resource type="VisualShaderNodeInput" id=4]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=5]
+
+[sub_resource type="VisualShaderNodeCompare" id=6]
+function = 2
+
+[sub_resource type="VisualShaderNodeScalarSwitch" id=7]
+
+[sub_resource type="VisualShader" id=8]
+code = "shader_type canvas_item;
+uniform float amountHidden;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:10
+	vec3 n_out10p0;
+	float n_out10p1;
+	{
+		vec4 _tex_read = texture( TEXTURE , UV.xy );
+		n_out10p0 = _tex_read.rgb;
+		n_out10p1 = _tex_read.a;
+	}
+
+// Input:4
+	vec3 n_out4p0;
+	n_out4p0 = vec3(UV,0.0);
+
+// VectorDecompose:7
+	float n_out7p0;
+	float n_out7p1;
+	float n_out7p2;
+	n_out7p0 = n_out4p0.x;
+	n_out7p1 = n_out4p0.y;
+	n_out7p2 = n_out4p0.z;
+
+// ScalarUniform:2
+	float n_out2p0;
+	n_out2p0 = amountHidden;
+
+// Compare:8
+	bool n_out8p0;
+	n_out8p0=n_out7p0>n_out2p0;
+
+// ScalarSwitch:9
+	float n_in9p2 = 0.00000;
+	float n_out9p0;
+	if(n_out8p0)
+	{
+		n_out9p0=n_out10p1;
+	}
+	else
+	{
+		n_out9p0=n_in9p2;
+	}
+
+// Output:0
+	COLOR.rgb = n_out10p0;
+	COLOR.a = n_out9p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource( 3 )
+nodes/fragment/2/position = Vector2( -580, 300 )
+nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/position = Vector2( -760, 200 )
+nodes/fragment/7/node = SubResource( 5 )
+nodes/fragment/7/position = Vector2( -600, 200 )
+nodes/fragment/8/node = SubResource( 6 )
+nodes/fragment/8/position = Vector2( -300, 140 )
+nodes/fragment/9/node = SubResource( 7 )
+nodes/fragment/9/position = Vector2( 120, 200 )
+nodes/fragment/10/node = SubResource( 2 )
+nodes/fragment/10/position = Vector2( -120, 100 )
+nodes/fragment/connections = PoolIntArray( 4, 0, 7, 0, 7, 0, 8, 0, 2, 0, 8, 1, 8, 0, 9, 0, 9, 0, 0, 1, 10, 0, 0, 0, 10, 1, 9, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/amountHidden = 1.0
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 12 )
@@ -114,18 +220,24 @@ margin_right = 340.0
 margin_bottom = 525.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 200
+custom_constants/margin_right = 100
 custom_constants/margin_left = 22
 custom_constants/margin_bottom = 250
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 22.0
-margin_right = 140.0
+margin_right = 240.0
 margin_bottom = 111.0
 custom_constants/separation = 10
 
-[node name="PlayButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-margin_right = 118.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 218.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 107.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -137,9 +249,23 @@ expand = true
 stretch_mode = 4
 script = ExtResource( 13 )
 
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 111.0
+margin_right = 218.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 18 )
+texture_click_mask = ExtResource( 19 )
+expand = true
+stretch_mode = 4
+script = ExtResource( 20 )
+
 [node name="QuitButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 60.0
-margin_right = 118.0
+margin_right = 218.0
 margin_bottom = 111.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -150,5 +276,18 @@ texture_click_mask = ExtResource( 11 )
 expand = true
 stretch_mode = 4
 script = ExtResource( 14 )
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+
+[node name="CommandsPanel" type="Sprite" parent="."]
+self_modulate = Color( 1.1, 1.1, 1.1, 1 )
+material = SubResource( 9 )
+position = Vector2( 732.776, 299.563 )
+scale = Vector2( 0.556364, -0.556364 )
+texture = ExtResource( 15 )
+flip_v = true
+script = ExtResource( 16 )
+
+[node name="Tween" type="Tween" parent="CommandsPanel"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TextureButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TextureButton" method="_on_TextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TextureButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TextureButton" method="_on_TextureButton_mouse_exited"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

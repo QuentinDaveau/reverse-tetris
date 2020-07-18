@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/question_button_mask.bmp-f9ddf8f80e4b06ac173c9294e79a2cc5.res"
+
+[deps]
+
+source_file="res://assets/ui/question_button_mask.bmp"
+dest_files=[ "res://.import/question_button_mask.bmp-f9ddf8f80e4b06ac173c9294e79a2cc5.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5
