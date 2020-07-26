@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wheel_sparkling.wav-07d2a0ec12d51d1d9cf54861d09001ba.sample"
+
+[deps]
+
+source_file="res://assets/sounds/wheel_sparkling.wav"
+dest_files=[ "res://.import/wheel_sparkling.wav-07d2a0ec12d51d1d9cf54861d09001ba.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/menu/scores_page/score_line/score_line.gd" type="Script" id=1]
+
+[node name="ScoreLine" type="Panel"]
+anchor_right = 0.391
+anchor_bottom = 0.042
+margin_right = -0.384003
+margin_bottom = -0.200001
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 2
+custom_constants/margin_left = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 8.0
+margin_top = 2.0
+margin_right = 392.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 176.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+valign = 1
+
+[node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_left = 180.0
+margin_top = 5.0
+margin_right = 289.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.62
+valign = 1
+
+[node name="Date" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_left = 293.0
+margin_top = 5.0
+margin_right = 384.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.51
+valign = 1

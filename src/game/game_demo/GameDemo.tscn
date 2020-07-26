@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/generator/Generator.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/ui/predictor/Predictor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/game/game_demo/game_demo_env.tres" type="Environment" id=7]
 [ext_resource path="res://src/ui/player_slots/PlayerSlots.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sounds/explosion_test_1_slow_mo.wav" type="AudioStream" id=9]
 
 [sub_resource type="VisualShaderNodeTexture" id=1]
 output_port_for_preview = 0
@@ -95,6 +96,7 @@ scale = Vector2( 1.02, 1.02 )
 visible = false
 position = Vector2( 720, 204 )
 scale = Vector2( 0.3, 0.3 )
+_is_demo = true
 
 [node name="Predictor" parent="." instance=ExtResource( 6 )]
 visible = false
@@ -109,6 +111,7 @@ _cell_size = 32.0
 _player_path = "res://src/player/demo_player/DemoPlayer.tscn"
 _block_path = "res://src/block/Block.tscn"
 _smoke_spawner_path = "res://src/grid/smoke_spawner/SmokeSpawner.tscn"
+explosion_slow_mo = ExtResource( 9 )
 _is_demo = true
 
 [node name="Blur" type="Node2D" parent="."]

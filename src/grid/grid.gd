@@ -7,6 +7,7 @@ export(float) var _cell_size: float
 export(String, FILE, "*.tscn") var _player_path: String
 export(String, FILE, "*.tscn") var _block_path: String
 export(String, FILE, "*.tscn") var _smoke_spawner_path: String
+export(AudioStreamSample) var explosion_slow_mo
 
 export(bool) var _is_demo: bool = false
 
@@ -152,6 +153,7 @@ func _instance_block(grid_position: Vector2, block_show_delay) -> Block:
 	var block : Block = _block.instance()
 	if _is_demo:
 		block.get_node("Sprite").get_material().set_shader_param("Limit", false)
+		block.get_node("ExplosionSound").stream = explosion_slow_mo
 	add_child(block)
 	block.global_position = _convert_to_world_position(grid_position)
 	block.complete_spawn(block_show_delay)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/brick_shoot_test_slow_mo.wav-e24c89ae37db55a54200a69291e2eedc.sample"
+
+[deps]
+
+source_file="res://assets/sounds/brick_shoot_test_slow_mo.wav"
+dest_files=[ "res://.import/brick_shoot_test_slow_mo.wav-e24c89ae37db55a54200a69291e2eedc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -52,6 +52,8 @@ func update_position(new_position: Vector2, wait_time: float) -> void:
 	if wait_time > 0:
 		$MoveTimer.start(wait_time)
 		yield($MoveTimer, "timeout")
+	$MoveSound.pitch_scale = Engine.time_scale * rand_range(0.8, 1.2)
+	$MoveSound.play()
 	$Tween.interpolate_property(self, "global_position", global_position,
 		new_position, _move_speed, Tween.TRANS_BACK, Tween.EASE_OUT)
 	$Tween.interpolate_property(self, "scale:x", 1, 0.5, 
@@ -70,6 +72,9 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	randomize()
 	$ExplodeTimer.start(randf() * _explode_delay)
 	yield($ExplodeTimer, "timeout")
+	$RetractSound.pitch_scale = Engine.time_scale * rand_range(0.8, 1.2)
+	$RetractSound.play()
+	
 	$Tween.interpolate_property($Sprite, "scale", $Sprite.scale, Vector2.ZERO, 0.2, Tween.TRANS_BACK, Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
@@ -87,12 +92,14 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	$Light2D.enabled = true
 	$ColorRect.visible = true
 	$ExplosionParticles.emitting = true
+	$ExplosionSound.pitch_scale = rand_range(0.7, 1.3)
+	$ExplosionSound.play()
 	$ExplodeTimer.start(0.05)
 	yield($ExplodeTimer, "timeout")
 	$DustParticles.emitting = true
 	$Light2D.enabled = false
 	$ColorRect.visible = false
 	$Sprite.visible = false
-	$ExplodeTimer.start($ExplosionParticles.lifetime)
+	$ExplodeTimer.start($ExplosionParticles.lifetime + 2)
 	yield($ExplodeTimer, "timeout")
 	queue_free()

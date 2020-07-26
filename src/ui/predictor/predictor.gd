@@ -12,7 +12,7 @@ func _on_Generator_queue_updated(queue: Array) -> void:
 	if queue.size() < 3:
 		return
 	for block in _next_brick:
-		block.explode()
+		block.explode(false)
 	_next_brick.clear()
 	var i: int = 0
 	for block in queue[0].get_block_models():

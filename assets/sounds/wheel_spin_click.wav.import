@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wheel_spin_click.wav-47b2f43846f1f8d3a12667e3f20b921e.sample"
+
+[deps]
+
+source_file="res://assets/sounds/wheel_spin_click.wav"
+dest_files=[ "res://.import/wheel_spin_click.wav-47b2f43846f1f8d3a12667e3f20b921e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

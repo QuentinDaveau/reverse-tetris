@@ -1,6 +1,8 @@
 extends Node2D
 class_name ScoreCounter
 
+export(bool) var _is_demo = false
+
 var _speed: float = 0.0
 var _total_score: float = 0.0
 var _damp: float = 200.0
@@ -14,7 +16,18 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if _is_demo:
+		return
+	
+	var floored_score = floor(_total_score / 128)
 	_total_score += _speed * delta
+	
+	if (_total_score / 128) - floored_score > 1:
+		if _speed / 1280 > 3:
+			$ClickSound.pitch_scale = 1.56
+		else:
+			$ClickSound.pitch_scale = 1 + pow(_speed / (1280 * 4), 2)
+		$ClickSound.play()
 	
 	if _speed > 0:
 		_speed -= (_damp + (_speed / 5)) * delta

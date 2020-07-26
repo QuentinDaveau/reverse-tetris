@@ -1,6 +1,6 @@
 extends Sprite
 
-const DURATION: float = 0.2
+const DURATION: float = 0.1
 
 
 func set_visibility(show: bool = true) -> void:

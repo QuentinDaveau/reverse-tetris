@@ -7,4 +7,4 @@ func _on_PlayButton_pressed() -> void:
 
 
 func _on_QuitButton_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().quit()

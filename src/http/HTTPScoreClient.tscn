@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/http/http_score_client.gd" type="Script" id=1]
+
+[node name="HTTPScoreClient" type="HTTPRequest"]
+timeout = 10
+script = ExtResource( 1 )

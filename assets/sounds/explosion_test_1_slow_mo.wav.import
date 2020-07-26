@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/explosion_test_1_slow_mo.wav-c73eafc96e12d172fbcb1de1728d4991.sample"
+
+[deps]
+
+source_file="res://assets/sounds/explosion_test_1_slow_mo.wav"
+dest_files=[ "res://.import/explosion_test_1_slow_mo.wav-c73eafc96e12d172fbcb1de1728d4991.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
