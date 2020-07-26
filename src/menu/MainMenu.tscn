@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/game/game_demo/GameDemo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/title.png" type="Texture" id=2]
@@ -22,10 +22,15 @@
 [ext_resource path="res://src/menu/question_button.gd" type="Script" id=20]
 [ext_resource path="res://assets/sounds/button_click.wav" type="AudioStream" id=21]
 [ext_resource path="res://assets/sounds/button_hover.wav" type="AudioStream" id=22]
+[ext_resource path="res://src/menu/scores_page/ScoresPage.tscn" type="PackedScene" id=23]
+[ext_resource path="res://assets/ui/score_button.png" type="Texture" id=24]
+[ext_resource path="res://assets/ui/score_button_highlight.png" type="Texture" id=25]
+[ext_resource path="res://assets/ui/score_button_pressed.png" type="Texture" id=26]
+[ext_resource path="res://src/menu/score_button.gd" type="Script" id=27]
 
 [sub_resource type="ViewportTexture" id=1]
 flags = 4
-viewport_path = NodePath("Viewport")
+viewport_path = NodePath("Node2D/Viewport")
 
 [sub_resource type="VisualShaderNodeTexture" id=2]
 source = 2
@@ -130,13 +135,16 @@ shader_param/amountHidden = 1.0
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 12 )
 
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 1024, 600 )
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 0, 600 )
+
+[node name="Viewport" type="Viewport" parent="Node2D"]
+size = Vector2( 1024, 1800 )
 disable_3d = true
 audio_listener_enable_2d = true
 gui_disable_input = true
 
-[node name="GameDemo" parent="Viewport" instance=ExtResource( 1 )]
+[node name="GameDemo" parent="Node2D/Viewport" instance=ExtResource( 1 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0.52549, 0.52549, 0.52549, 1 )
@@ -224,12 +232,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 100
 custom_constants/margin_left = 22
-custom_constants/margin_bottom = 250
+custom_constants/margin_bottom = 190
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 22.0
 margin_right = 240.0
-margin_bottom = 111.0
+margin_bottom = 171.0
 custom_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
@@ -272,10 +280,33 @@ expand = true
 stretch_mode = 4
 script = ExtResource( 20 )
 
-[node name="QuitButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="ScoreButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_top = 60.0
 margin_right = 218.0
-margin_bottom = 111.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 24 )
+texture_pressed = ExtResource( 26 )
+texture_hover = ExtResource( 25 )
+texture_click_mask = ExtResource( 11 )
+expand = true
+stretch_mode = 4
+script = ExtResource( 27 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton"]
+position = Vector2( 0, -60 )
+stream = ExtResource( 21 )
+
+[node name="ButtonHover" type="AudioStreamPlayer2D" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton"]
+position = Vector2( 0, -60 )
+stream = ExtResource( 22 )
+volume_db = 7.02
+
+[node name="QuitButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 218.0
+margin_bottom = 171.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource( 3 )
@@ -305,11 +336,26 @@ flip_v = true
 script = ExtResource( 16 )
 
 [node name="Tween" type="Tween" parent="CommandsPanel"]
+
+[node name="ScoresPage" parent="." instance=ExtResource( 23 )]
+position = Vector2( 0, 600 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+current = true
+
+[node name="CameraTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" method="_on_TextureButton_mouse_entered"]
 [connection signal="mouse_exited" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" method="_on_TextureButton_mouse_exited"]
+[connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" method="_on_ScoreButton_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="." method="_on_ScoreButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" method="_on_ScoreButton_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="ScoresPage/Control/MarginContainer/VBoxContainer/HBoxContainer/GoBackButton" to="." method="_on_GoBackButton_pressed"]
+
+[editable path="ScoresPage"]
