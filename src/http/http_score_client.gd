@@ -3,6 +3,7 @@ extends HTTPRequest
 signal request_treated(status, value)
 
 var _request_url: String = "http://pangolin.heliohost.org/get_scores.php"
+var _push_url: String = "http://pangolin.heliohost.org/push_score.php"
 
 
 func _ready():
@@ -26,11 +27,27 @@ func get_scores(filter: String = "", sort_by: String = "") -> void:
 		return
 
 
+func send_score(score: int, user_name: String = "Random player") -> void:
+	var temp_url = _push_url
+	temp_url += "?score="+String(score)
+	temp_url += "&user_name="+user_name
+	var error = request(temp_url)
+	if error != OK:
+		return
+
+
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body) -> void:
 	if response_code != 200:
-		push_error("bad response code!: " + String(response_code) + " " + body + " " + headers)
+		push_error("bad response code!: " + String(response_code) + " " + String(body) + " " + String(headers))
 		emit_signal("request_treated", false, [])
 		return
 	var response = parse_json(body.get_string_from_utf8())
-	emit_signal("request_treated", true, response.scores)
+	if not response or not response.has("operation"):
+		push_error("cannot parse JSON: " + String(response_code) + " " + String(body) + " " + String(headers))
+		emit_signal("request_treated", false, [])
+		return
+	if response.operation == "get_scores":
+		emit_signal("request_treated", true, response.scores)
+	if response.operation == "push_score":
+		emit_signal("request_treated", true, response.rank[0])

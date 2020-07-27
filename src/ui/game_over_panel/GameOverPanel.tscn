@@ -1,0 +1,236 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/ui/panel_rect.png" type="Texture" id=2]
+[ext_resource path="res://src/ui/game_over_panel/game_over_panel.gd" type="Script" id=3]
+[ext_resource path="res://src/http/HTTPScoreClient.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 23
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 9
+font_data = ExtResource( 1 )
+
+[node name="GameOverPanel" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/CenterContainer"]
+margin_left = 321.0
+margin_top = 151.0
+margin_right = 702.0
+margin_bottom = 448.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/CenterContainer/MarginContainer"]
+margin_right = 381.0
+margin_bottom = 297.0
+texture = ExtResource( 2 )
+patch_margin_left = 26
+patch_margin_top = 26
+patch_margin_right = 26
+patch_margin_bottom = 26
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/CenterContainer/MarginContainer"]
+margin_right = 381.0
+margin_bottom = 297.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer/MarginContainer/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 366.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageLabel" type="Label" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_right = 351.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 1 )
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Separator" type="Control" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 351.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 46.0
+margin_right = 351.0
+margin_bottom = 64.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 38.0
+margin_right = 236.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 2 )
+text = "Your score:"
+
+[node name="ScoreLabel" type="Label" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 240.0
+margin_right = 312.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 1, 0.482353, 0, 1 )
+text = "2443"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 351.0
+margin_bottom = 108.0
+custom_constants/separation = 40
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 112.0
+margin_right = 351.0
+margin_bottom = 142.0
+rect_min_size = Vector2( 0, 30 )
+alignment = 1
+
+[node name="UserNameLine" type="LineEdit" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 22.0
+margin_right = 252.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 230, 0 )
+align = 1
+max_length = 16
+placeholder_text = "User name"
+caret_blink = true
+
+[node name="SendScoreButton" type="Button" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 256.0
+margin_right = 328.0
+margin_bottom = 30.0
+text = "Send!"
+
+[node name="Label3" type="Label" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 146.0
+margin_right = 351.0
+margin_bottom = 158.0
+text = "(for score board)"
+align = 1
+valign = 1
+
+[node name="Separator2" type="Control" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 162.0
+margin_right = 351.0
+margin_bottom = 187.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 191.0
+margin_right = 351.0
+margin_bottom = 221.0
+rect_min_size = Vector2( 0, 30 )
+alignment = 1
+
+[node name="Separator2" type="Control" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 19.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="ReplayButton" type="Button" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 23.0
+margin_right = 123.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 0 )
+disabled = true
+text = "Replay"
+
+[node name="Separator" type="Control" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 127.0
+margin_right = 223.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="MenuButton" type="Button" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 227.0
+margin_right = 327.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 0 )
+disabled = true
+text = "Menu"
+
+[node name="Separator3" type="Control" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 331.0
+margin_right = 351.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="HSeparator2" type="HSeparator" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 225.0
+margin_right = 351.0
+margin_bottom = 245.0
+custom_constants/separation = 20
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 249.0
+margin_right = 351.0
+margin_bottom = 267.0
+rect_min_size = Vector2( 351, 18 )
+custom_constants/separation = 15
+alignment = 1
+
+[node name="StatusText" type="Label" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 157.0
+margin_top = 3.0
+margin_right = 193.0
+margin_bottom = 15.0
+text = "..."
+valign = 1
+
+[node name="RefreshButton" type="Button" parent="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+visible = false
+margin_left = 172.0
+margin_right = 229.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 3 )
+text = "Retry"
+
+[node name="HTTPScoreClient" parent="." instance=ExtResource( 4 )]
+timeout = 6
+[connection signal="text_changed" from="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/UserNameLine" to="." method="_on_UserNameLine_text_changed"]
+[connection signal="pressed" from="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/SendScoreButton" to="." method="_on_SendScoreButton_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3/ReplayButton" to="." method="_on_ReplayButton_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer4/RefreshButton" to="." method="_on_RefreshButton_pressed"]
+[connection signal="request_treated" from="HTTPScoreClient" to="." method="_on_HTTPScoreClient_request_treated"]

@@ -27,7 +27,6 @@ var _highlighted_blocks: Array = []
 var lost = false
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	$Neon.scale = Vector2(_rows * _cell_size / 512, _columns * _cell_size / 1024)
@@ -145,6 +144,8 @@ func _push_wall(amount: int) -> void:
 					if first_move == -1:
 						first_move = i
 					cells[i][j] = _instance_block(Vector2(i, j), (1 +i - first_move) * _block_move_delay)
+	if lost:
+		owner.get_score_counter().brake()
 
 
 func _instance_block(grid_position: Vector2, block_show_delay) -> Block:
