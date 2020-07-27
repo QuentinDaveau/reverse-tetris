@@ -2,8 +2,8 @@ extends HTTPRequest
 
 signal request_treated(status, value)
 
-var _request_url: String = "http://pangolin.heliohost.org/get_scores.php"
-var _push_url: String = "http://pangolin.heliohost.org/push_score.php"
+var _request_url: String = "https://pangolin.heliohost.org/get_scores.php"
+var _push_url: String = "https://pangolin.heliohost.org/push_score.php"
 
 
 func _ready():

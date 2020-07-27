@@ -76,6 +76,10 @@ game_rotate={
  ]
 }
 
+[network]
+
+ssl/certificates="res://assets/certificates/cert.crt"
+
 [rendering]
 
 environment/default_clear_color=Color( 0, 0, 0, 1 )

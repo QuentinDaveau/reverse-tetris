@@ -20,7 +20,7 @@ func _update_list(scores: Array) -> bool:
 	var i := 1
 	for line in scores:
 		var new_line = _score_line.instance()
-		new_line.setup(String(i), String(line[0]), String(line[1]), String(line[2]))
+		new_line.setup(String(line[0]), String(line[1]), String(line[2]), String(line[3]))
 		_lines_container.add_child(new_line)
 		i += 1
 	return true
