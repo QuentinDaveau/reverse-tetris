@@ -33,7 +33,7 @@ func send_score(score: int, user_name: String = "Random player") -> void:
 	temp_url += "&user_name="+user_name
 	var error = request(temp_url)
 	if error != OK:
-		return
+		push_error("HTTP error: " + error)
 
 
 # Called when the HTTP request is completed.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/grid/Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/generator/Generator.tscn" type="PackedScene" id=2]
@@ -10,6 +10,13 @@
 [ext_resource path="res://src/ui/player_slots/PlayerSlots.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/game/game.gd" type="Script" id=9]
 [ext_resource path="res://src/ui/game_over_panel/GameOverPanel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/ui/menu_button.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/menu_button_highlight.png" type="Texture" id=12]
+[ext_resource path="res://assets/ui/menu_button_pressed.png" type="Texture" id=13]
+[ext_resource path="res://assets/ui/button_mask.bmp" type="BitMap" id=14]
+[ext_resource path="res://assets/sounds/button_hover.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/sounds/button_click.wav" type="AudioStream" id=16]
+[ext_resource path="res://src/game/menu_button.gd" type="Script" id=17]
 
 [sub_resource type="VisualShaderNodeTexture" id=1]
 source = 1
@@ -88,6 +95,45 @@ glow_enabled = true
 [node name="Game" type="Node2D"]
 position = Vector2( 0, 6.64819 )
 script = ExtResource( 9 )
+
+[node name="MenuButton" type="Node2D" parent="."]
+position = Vector2( 8, -1 )
+
+[node name="Control" type="Control" parent="MenuButton"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MenuButton/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="MenuButton/Control/CenterContainer"]
+self_modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
+margin_right = 60.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 60, 40 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 12 )
+texture_click_mask = ExtResource( 14 )
+expand = true
+stretch_mode = 4
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonHover" type="AudioStreamPlayer2D" parent="MenuButton/Control/CenterContainer/TextureButton"]
+stream = ExtResource( 15 )
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="MenuButton/Control/CenterContainer/TextureButton"]
+stream = ExtResource( 16 )
 
 [node name="PlayerSlots" parent="." instance=ExtResource( 8 )]
 position = Vector2( 480, 544.292 )
@@ -238,6 +284,7 @@ margin_left = -5.0
 margin_top = -14.0
 margin_right = 1033.0
 margin_bottom = 600.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -248,5 +295,7 @@ position = Vector2( 0, -480.212 )
 z_index = 100
 
 [node name="Tween" type="Tween" parent="GameOverPanel"]
+[connection signal="mouse_entered" from="MenuButton/Control/CenterContainer/TextureButton" to="MenuButton/Control/CenterContainer/TextureButton" method="_on_TextureButton_mouse_entered"]
+[connection signal="pressed" from="MenuButton/Control/CenterContainer/TextureButton" to="MenuButton/Control/CenterContainer/TextureButton" method="_on_TextureButton_pressed"]
 [connection signal="wheel_final_stop" from="ScoreCounter" to="." method="_on_ScoreCounter_wheel_final_stop"]
 [connection signal="queue_updated" from="Generator" to="Predictor" method="_on_Generator_queue_updated"]

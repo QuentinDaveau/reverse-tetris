@@ -10,6 +10,7 @@ func get_camera() -> Node:
 
 
 func _on_ScoreCounter_wheel_final_stop(final_score) -> void:
+	$MenuButton/Control/CenterContainer/TextureButton.disabled = true
 	$GameOverPanel.focus()
 	$GameOverPanel.set_score(final_score)
 	$GameOverPanel/Tween.interpolate_property($GameOverPanel, "position:y", $GameOverPanel.position.y,
