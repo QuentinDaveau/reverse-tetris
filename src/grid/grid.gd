@@ -104,10 +104,10 @@ func update_player_proj() -> void:
 	for block in _highlighted_blocks:
 		if not block:
 			continue
-		block.highlight(Color.black)
+		block.highlight(false)
 	_highlighted_blocks = []
 	for block in neighbours:
-		cells[block.x][block.y].highlight(_player._current_brick.get_blocks_color())
+		cells[block.x][block.y].highlight(true, _player._current_brick.get_blocks_color())
 		_highlighted_blocks.append(cells[block.x][block.y])
 
 
@@ -166,10 +166,12 @@ func _destroy_block(grid_position: Vector2, explosion_color: Color) -> void:
 		return
 	_spawn_smoke(cells[grid_position.x][grid_position.y].global_position)
 	cells[grid_position.x][grid_position.y].explode(explosion_color, 
-			(grid_position.y * _cell_size) + (_cell_size / 2),
-			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
-			(grid_position.x * _cell_size) - (_cell_size * 1.5),
-			((_columns - grid_position.x) * _cell_size) - (_cell_size * 1.5))
+#			(grid_position.y * _cell_size) + (_cell_size / 2),
+#			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
+#			(grid_position.x * _cell_size) - (_cell_size * 1.5),
+#			((_columns - grid_position.x) * _cell_size) - (_cell_size * 1.5))
+			global_position.x - 16, (global_position.x - 16) + (_cell_size * _rows),
+			global_position.y - 48, global_position.y - ((_columns - 1.5) * _cell_size))
 	cells[grid_position.x][grid_position.y] = 0
 
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/question_button_pressed.png-11ff5cdd23b1a04696ca88ca7df738fb.stex"
+path="res://.import/particles_mask.jpeg-f4105fad0806a7581596f5cd1a0c952d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/question_button_pressed.png"
-dest_files=[ "res://.import/question_button_pressed.png-11ff5cdd23b1a04696ca88ca7df738fb.stex" ]
+source_file="res://assets/sprites/particles_mask.jpeg"
+dest_files=[ "res://.import/particles_mask.jpeg-f4105fad0806a7581596f5cd1a0c952d.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

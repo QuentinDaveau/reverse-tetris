@@ -13,6 +13,8 @@ var _move_speed: float = 0.2
 var _repulse_displacement: Vector2 = Vector2.ZERO
 var _repulse_shake: float = 0.0
 
+var _new_position: Vector2 = Vector2.ZERO
+
 
 func _process(delta: float) -> void:
 	if _repulse_displacement.length() > 0.005:
@@ -23,8 +25,11 @@ func _process(delta: float) -> void:
 		$Sprite.rotation = _repulse_shake
 
 
-func highlight(highlight_color: Color) -> void:
-	$Sprite.get_material().set_shader_param("HighlightColor", highlight_color)
+func highlight(activate: bool, highlight_color: Color = Color.black) -> void:
+	if activate:
+		$Sprite.self_modulate = highlight_color.lightened(0.4) * 2
+	else:
+		$Sprite.self_modulate = Color.white
 
 
 func repulse(origin: Vector2) -> void:
@@ -42,28 +47,14 @@ func repulse(origin: Vector2) -> void:
 
 
 func complete_spawn(wait_time: float) -> void:
-	if wait_time > 0:
-		$MoveTimer.start(wait_time)
-		yield($MoveTimer, "timeout")
+	_new_position = global_position
+	$MoveTimer.start(wait_time + 0.001)
 	$Sprite.visible = true
 
 
 func update_position(new_position: Vector2, wait_time: float) -> void:
-	if wait_time > 0:
-		$MoveTimer.start(wait_time)
-		yield($MoveTimer, "timeout")
-	$MoveSound.pitch_scale = Engine.time_scale * rand_range(0.8, 1.2)
-	$MoveSound.play()
-	$Tween.interpolate_property(self, "global_position", global_position,
-		new_position, _move_speed, Tween.TRANS_BACK, Tween.EASE_OUT)
-	$Tween.interpolate_property(self, "scale:x", 1, 0.5, 
-		_move_speed / 3, Tween.TRANS_QUINT, Tween.EASE_OUT)
-	$Tween.interpolate_property(self, "scale:x", 0.5, 1, 
-		2 * _move_speed / 3, Tween.TRANS_BACK, Tween.EASE_OUT, _move_speed / 3)
-#	$TrailParticles.emitting = true
-	$Tween.start()
-	yield($Tween, "tween_all_completed")
-#	$TrailParticles.emitting = false
+	_new_position = new_position
+	$MoveTimer.start(wait_time + 0.001)
 
 
 func explode(explosion_color: Color, limit_left: float, limit_right: float, limit_bottom: float, limit_top: float) -> void:
@@ -103,3 +94,15 @@ func explode(explosion_color: Color, limit_left: float, limit_right: float, limi
 	$ExplodeTimer.start($ExplosionParticles.lifetime + 2)
 	yield($ExplodeTimer, "timeout")
 	queue_free()
+
+
+func _on_MoveTimer_timeout() -> void:
+	$MoveSound.pitch_scale = Engine.time_scale * rand_range(0.8, 1.2)
+	$MoveSound.play()
+	$Tween.interpolate_property(self, "global_position", global_position,
+		_new_position, _move_speed, Tween.TRANS_BACK, Tween.EASE_OUT)
+	$Tween.interpolate_property(self, "scale:x", 1, 0.5, 
+		_move_speed / 3, Tween.TRANS_QUINT, Tween.EASE_OUT)
+	$Tween.interpolate_property(self, "scale:x", 0.5, 1, 
+		2 * _move_speed / 3, Tween.TRANS_BACK, Tween.EASE_OUT, _move_speed / 3)
+	$Tween.start()

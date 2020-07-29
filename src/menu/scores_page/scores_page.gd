@@ -12,6 +12,10 @@ func refresh() -> void:
 	$HTTPScoreClient.get_scores(_name_filter.text, _sort_type.text)
 
 
+func tidy() -> void:
+	$Control/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer.scroll_vertical = 0
+
+
 func _update_list(scores: Array) -> bool:
 	if scores.size() <= 0:
 		return false

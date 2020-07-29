@@ -11,103 +11,103 @@ output_port_for_preview = 0
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.5, 0.5, 0.5 ) ]
 operator = 1
 
-[sub_resource type="VisualShaderNodeVectorOp" id=5]
+[sub_resource type="VisualShaderNodeVectorOp" id=3]
 output_port_for_preview = 0
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.1, 0.1, 0.1 ) ]
 operator = 4
 
-[sub_resource type="VisualShaderNodeInput" id=6]
+[sub_resource type="VisualShaderNodeInput" id=4]
 output_port_for_preview = 0
 input_name = "uv"
 
-[sub_resource type="VisualShaderNodeVectorOp" id=7]
+[sub_resource type="VisualShaderNodeVectorOp" id=5]
 output_port_for_preview = 0
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 10, 10, 10 ) ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorLen" id=8]
+[sub_resource type="VisualShaderNodeVectorLen" id=6]
 output_port_for_preview = 0
 
-[sub_resource type="VisualShaderNodeTexture" id=9]
+[sub_resource type="VisualShaderNodeTexture" id=7]
 source = 2
 
-[sub_resource type="VisualShaderNodeIf" id=10]
+[sub_resource type="VisualShaderNodeIf" id=8]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.0, 3, Vector3( 0, 0, 0 ), 4, Vector3( 0, 0, 0 ), 5, Vector3( 0, 0, 0 ) ]
 
-[sub_resource type="VisualShaderNodeVectorScalarSmoothStep" id=11]
+[sub_resource type="VisualShaderNodeVectorScalarSmoothStep" id=9]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.95, 1, 1.0, 2, Vector3( 0, 0, 0 ) ]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=12]
+[sub_resource type="VisualShaderNodeVectorOp" id=10]
 output_port_for_preview = 0
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=13]
+[sub_resource type="VisualShaderNodeVectorOp" id=11]
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 10, 10, 10 ) ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=17]
+[sub_resource type="VisualShaderNodeVectorOp" id=12]
 operator = 3
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=18]
+[sub_resource type="VisualShaderNodeScalarUniform" id=13]
 uniform_name = "Darkening"
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=19]
+[sub_resource type="VisualShaderNodeScalarUniform" id=14]
 uniform_name = "Tiles"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=20]
+[sub_resource type="VisualShaderNodeScalarOp" id=15]
 default_input_values = [ 0, 1.0, 1, 0.0 ]
 operator = 3
 
-[sub_resource type="VisualShaderNodeScalarOp" id=21]
+[sub_resource type="VisualShaderNodeScalarOp" id=16]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 0.6 ]
 
-[sub_resource type="VisualShaderNodeScalarSmoothStep" id=22]
+[sub_resource type="VisualShaderNodeScalarSmoothStep" id=17]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.95, 1, 0.995, 2, 1.0 ]
 
-[sub_resource type="VisualShaderNodeScalarSmoothStep" id=23]
+[sub_resource type="VisualShaderNodeScalarSmoothStep" id=18]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 1.0, 2, 0.995 ]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=24]
+[sub_resource type="VisualShaderNodeScalarOp" id=19]
 output_port_for_preview = 0
 operator = 2
 
-[sub_resource type="VisualShaderNodeInput" id=25]
+[sub_resource type="VisualShaderNodeInput" id=20]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeScalarOp" id=26]
+[sub_resource type="VisualShaderNodeScalarOp" id=21]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 1.0 ]
 operator = 4
 
-[sub_resource type="VisualShaderNodeScalarOp" id=27]
+[sub_resource type="VisualShaderNodeScalarOp" id=22]
 default_input_values = [ 0, 1.0, 1, 1.0 ]
 operator = 1
 
-[sub_resource type="VisualShaderNodeColorConstant" id=14]
+[sub_resource type="VisualShaderNodeColorConstant" id=23]
 constant = Color( 0, 0.175781, 0.169646, 1 )
 
-[sub_resource type="VisualShaderNodeScalarOp" id=29]
+[sub_resource type="VisualShaderNodeScalarOp" id=24]
 default_input_values = [ 0, 0.0, 1, 0.05 ]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarOp" id=30]
+[sub_resource type="VisualShaderNodeScalarOp" id=25]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.9, 1, 0.0 ]
 operator = 1
 
-[sub_resource type="VisualShaderNodeTexture" id=31]
+[sub_resource type="VisualShaderNodeTexture" id=26]
 source = 3
 
-[sub_resource type="VisualShaderNodeIf" id=32]
+[sub_resource type="VisualShaderNodeIf" id=27]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.0, 3, Vector3( 0, 0, 0 ), 4, Vector3( 0, 0, 0 ), 5, Vector3( 0, 0, 0 ) ]
 
-[sub_resource type="VisualShader" id=15]
+[sub_resource type="VisualShader" id=28]
 code = "shader_type canvas_item;
 uniform float Tiles;
 uniform float Darkening;
@@ -121,144 +121,120 @@ void vertex() {
 
 void fragment() {
 // Input:2
-	vec3 n_out2p0;
-	n_out2p0 = vec3(UV,0.0);
+	vec3 n_out2p0 = vec3(UV, 0.0);
 
 // ScalarUniform:32
-	float n_out32p0;
-	n_out32p0 = Tiles;
+	float n_out32p0 = Tiles;
 
 // ScalarOp:33
 	float n_in33p0 = 1.00000;
-	float n_out33p0;
-	n_out33p0 = n_in33p0 / n_out32p0;
+	float n_out33p0 = n_in33p0 / n_out32p0;
 
 // VectorOp:19
-	vec3 n_out19p0;
-	n_out19p0 = mod( n_out2p0 , vec3(n_out33p0) );
+	vec3 n_out19p0 = mod(n_out2p0, vec3(n_out33p0));
 
 // VectorOp:20
-	vec3 n_out20p0;
-	n_out20p0 = n_out19p0 * vec3(n_out32p0);
+	vec3 n_out20p0 = n_out19p0 * vec3(n_out32p0);
 
 // VectorScalarSmoothStep:27
 	float n_in27p0 = 0.95000;
 	float n_in27p1 = 1.00000;
-	vec3 n_out27p0;
-	n_out27p0 = smoothstep( n_in27p0, n_in27p1, n_out20p0 );
+	vec3 n_out27p0 = smoothstep(n_in27p0, n_in27p1, n_out20p0);
 
 // VectorLen:22
-	float n_out22p0;
-	n_out22p0 = length( n_out27p0 );
+	float n_out22p0 = length(n_out27p0);
 
 // Texture:25
 	vec3 n_out25p0;
 	float n_out25p1;
 	{
-		vec4 _tex_read = texture( TEXTURE , n_out20p0.xy );
+		vec4 _tex_read = texture(TEXTURE, n_out20p0.xy);
 		n_out25p0 = _tex_read.rgb;
 		n_out25p1 = _tex_read.a;
 	}
 
 // ScalarUniform:31
-	float n_out31p0;
-	n_out31p0 = Darkening;
+	float n_out31p0 = Darkening;
 
 // VectorOp:30
-	vec3 n_out30p0;
-	n_out30p0 = n_out25p0 / vec3(n_out31p0);
+	vec3 n_out30p0 = n_out25p0 / vec3(n_out31p0);
 
 // Color:5
-	vec3 n_out5p0;
-	float n_out5p1;
-	n_out5p0 = vec3(0.000000,0.175781,0.169646);
-	n_out5p1 = 1.000000;
+	vec3 n_out5p0 = vec3(0.000000, 0.175781, 0.169646);
+	float n_out5p1 = 1.000000;
 
 // VectorOp:16
-	vec3 n_in16p1 = vec3(0.50000,0.50000,0.50000);
-	vec3 n_out16p0;
-	n_out16p0 = n_out2p0 - n_in16p1;
+	vec3 n_in16p1 = vec3(0.50000, 0.50000, 0.50000);
+	vec3 n_out16p0 = n_out2p0 - n_in16p1;
 
 // DotProduct:14
-	float n_out14p0;
-	n_out14p0 = dot( n_out16p0 , n_out16p0 );
+	float n_out14p0 = dot(n_out16p0, n_out16p0);
 
 // Input:46
-	float n_out46p0;
-	n_out46p0 = TIME;
+	float n_out46p0 = TIME;
 
 // ScalarOp:50
 	float n_in50p1 = 0.05000;
-	float n_out50p0;
-	n_out50p0 = n_out46p0 * n_in50p1;
+	float n_out50p0 = n_out46p0 * n_in50p1;
 
 // ScalarOp:47
 	float n_in47p1 = 1.00000;
-	float n_out47p0;
-	n_out47p0 = mod( n_out50p0 , n_in47p1 );
+	float n_out47p0 = mod(n_out50p0, n_in47p1);
 
 // ScalarOp:48
 	float n_in48p0 = 1.00000;
-	float n_out48p0;
-	n_out48p0 = n_in48p0 - n_out47p0;
+	float n_out48p0 = n_in48p0 - n_out47p0;
 
 // ScalarOp:42
-	float n_out42p0;
-	n_out42p0 = n_out14p0 + n_out48p0;
+	float n_out42p0 = n_out14p0 + n_out48p0;
 
 // ScalarSmoothStep:43
 	float n_in43p1 = 0.99500;
 	float n_in43p2 = 1.00000;
-	float n_out43p0;
-	n_out43p0 = smoothstep( n_out42p0, n_in43p1, n_in43p2 );
+	float n_out43p0 = smoothstep(n_out42p0, n_in43p1, n_in43p2);
 
 // ScalarSmoothStep:44
 	float n_in44p1 = 1.00000;
 	float n_in44p2 = 0.99500;
-	float n_out44p0;
-	n_out44p0 = smoothstep( n_out42p0, n_in44p1, n_in44p2 );
+	float n_out44p0 = smoothstep(n_out42p0, n_in44p1, n_in44p2);
 
 // ScalarOp:45
-	float n_out45p0;
-	n_out45p0 = n_out43p0 * n_out44p0;
+	float n_out45p0 = n_out43p0 * n_out44p0;
 
 // ScalarOp:52
 	float n_in52p0 = 0.90000;
-	float n_out52p0;
-	n_out52p0 = n_in52p0 - n_out45p0;
+	float n_out52p0 = n_in52p0 - n_out45p0;
 
 // VectorOp:28
-	vec3 n_out28p0;
-	n_out28p0 = n_out5p0 * vec3(n_out52p0);
+	vec3 n_out28p0 = n_out5p0 * vec3(n_out52p0);
 
 // VectorOp:29
-	vec3 n_in29p1 = vec3(10.00000,10.00000,10.00000);
-	vec3 n_out29p0;
-	n_out29p0 = n_out28p0 * n_in29p1;
+	vec3 n_in29p1 = vec3(10.00000, 10.00000, 10.00000);
+	vec3 n_out29p0 = n_out28p0 * n_in29p1;
 
 // If:26
 	float n_in26p0 = 0.00000;
 	float n_in26p2 = 0.00000;
-	vec3 n_in26p3 = vec3(0.00000,0.00000,0.00000);
+	vec3 n_in26p3 = vec3(0.00000, 0.00000, 0.00000);
 	vec3 n_out26p0;
-	if(abs(n_in26p0-n_out22p0)<n_in26p2)
+	if(abs(n_in26p0 - n_out22p0) < n_in26p2)
 	{
-		n_out26p0=n_in26p3;
+		n_out26p0 = n_in26p3;
 	}
-	else if(n_in26p0<n_out22p0)
+	else if(n_in26p0 < n_out22p0)
 	{
-		n_out26p0=n_out29p0;
+		n_out26p0 = n_out29p0;
 	}
 	else
 	{
-		n_out26p0=n_out30p0;
+		n_out26p0 = n_out30p0;
 	}
 
 // Texture:53
 	vec3 n_out53p0;
 	float n_out53p1;
 	{
-		vec4 _tex_read = texture( NORMAL_TEXTURE , n_out20p0.xy );
+		vec4 _tex_read = texture(NORMAL_TEXTURE, n_out20p0.xy);
 		n_out53p0 = _tex_read.rgb;
 		n_out53p1 = _tex_read.a;
 	}
@@ -266,19 +242,19 @@ void fragment() {
 // If:54
 	float n_in54p0 = 0.00000;
 	float n_in54p2 = 0.00000;
-	vec3 n_in54p3 = vec3(0.00000,0.00000,0.00000);
+	vec3 n_in54p3 = vec3(0.00000, 0.00000, 0.00000);
 	vec3 n_out54p0;
-	if(abs(n_in54p0-n_out22p0)<n_in54p2)
+	if(abs(n_in54p0 - n_out22p0) < n_in54p2)
 	{
-		n_out54p0=n_in54p3;
+		n_out54p0 = n_in54p3;
 	}
-	else if(n_in54p0<n_out22p0)
+	else if(n_in54p0 < n_out22p0)
 	{
-		n_out54p0=n_out29p0;
+		n_out54p0 = n_out29p0;
 	}
 	else
 	{
-		n_out54p0=n_out53p0;
+		n_out54p0 = n_out53p0;
 	}
 
 // Output:0
@@ -292,72 +268,74 @@ void light() {
 
 }
 "
+custom_defines = ""
 graph_offset = Vector2( -1482.5, 695 )
 mode = 1
 flags/light_only = false
-nodes/fragment/2/node = SubResource( 6 )
+nodes/fragment/2/node = SubResource( 4 )
 nodes/fragment/2/position = Vector2( -1320, 340 )
-nodes/fragment/5/node = SubResource( 14 )
+nodes/fragment/5/node = SubResource( 23 )
 nodes/fragment/5/position = Vector2( -380, 260 )
 nodes/fragment/14/node = SubResource( 1 )
 nodes/fragment/14/position = Vector2( -960, 380 )
 nodes/fragment/16/node = SubResource( 2 )
 nodes/fragment/16/position = Vector2( -1140, 360 )
-nodes/fragment/19/node = SubResource( 5 )
+nodes/fragment/19/node = SubResource( 3 )
 nodes/fragment/19/position = Vector2( -1080, 120 )
-nodes/fragment/20/node = SubResource( 7 )
+nodes/fragment/20/node = SubResource( 5 )
 nodes/fragment/20/position = Vector2( -880, 100 )
-nodes/fragment/22/node = SubResource( 8 )
+nodes/fragment/22/node = SubResource( 6 )
 nodes/fragment/22/position = Vector2( -440, 80 )
-nodes/fragment/25/node = SubResource( 9 )
+nodes/fragment/25/node = SubResource( 7 )
 nodes/fragment/25/position = Vector2( -880, -60 )
-nodes/fragment/26/node = SubResource( 10 )
+nodes/fragment/26/node = SubResource( 8 )
 nodes/fragment/26/position = Vector2( 140, -80 )
-nodes/fragment/27/node = SubResource( 11 )
+nodes/fragment/27/node = SubResource( 9 )
 nodes/fragment/27/position = Vector2( -700, 80 )
-nodes/fragment/28/node = SubResource( 12 )
+nodes/fragment/28/node = SubResource( 10 )
 nodes/fragment/28/position = Vector2( -160, 260 )
-nodes/fragment/29/node = SubResource( 13 )
+nodes/fragment/29/node = SubResource( 11 )
 nodes/fragment/29/position = Vector2( 40, 300 )
-nodes/fragment/30/node = SubResource( 17 )
+nodes/fragment/30/node = SubResource( 12 )
 nodes/fragment/30/position = Vector2( -600, -100 )
-nodes/fragment/31/node = SubResource( 18 )
+nodes/fragment/31/node = SubResource( 13 )
 nodes/fragment/31/position = Vector2( -854.463, -147.489 )
-nodes/fragment/32/node = SubResource( 19 )
+nodes/fragment/32/node = SubResource( 14 )
 nodes/fragment/32/position = Vector2( -1520, 40 )
-nodes/fragment/33/node = SubResource( 20 )
+nodes/fragment/33/node = SubResource( 15 )
 nodes/fragment/33/position = Vector2( -1289.21, 137.011 )
-nodes/fragment/42/node = SubResource( 21 )
+nodes/fragment/42/node = SubResource( 16 )
 nodes/fragment/42/position = Vector2( -1140, 620 )
-nodes/fragment/43/node = SubResource( 22 )
+nodes/fragment/43/node = SubResource( 17 )
 nodes/fragment/43/position = Vector2( -920, 660 )
-nodes/fragment/44/node = SubResource( 23 )
+nodes/fragment/44/node = SubResource( 18 )
 nodes/fragment/44/position = Vector2( -920, 900 )
-nodes/fragment/45/node = SubResource( 24 )
+nodes/fragment/45/node = SubResource( 19 )
 nodes/fragment/45/position = Vector2( -660, 780 )
-nodes/fragment/46/node = SubResource( 25 )
+nodes/fragment/46/node = SubResource( 20 )
 nodes/fragment/46/position = Vector2( -1800, 600 )
-nodes/fragment/47/node = SubResource( 26 )
+nodes/fragment/47/node = SubResource( 21 )
 nodes/fragment/47/position = Vector2( -1440, 600 )
-nodes/fragment/48/node = SubResource( 27 )
+nodes/fragment/48/node = SubResource( 22 )
 nodes/fragment/48/position = Vector2( -1440, 820 )
-nodes/fragment/50/node = SubResource( 29 )
+nodes/fragment/50/node = SubResource( 24 )
 nodes/fragment/50/position = Vector2( -1620, 620 )
-nodes/fragment/52/node = SubResource( 30 )
+nodes/fragment/52/node = SubResource( 25 )
 nodes/fragment/52/position = Vector2( -480, 720 )
-nodes/fragment/53/node = SubResource( 31 )
+nodes/fragment/53/node = SubResource( 26 )
 nodes/fragment/53/position = Vector2( -860, -300 )
-nodes/fragment/54/node = SubResource( 32 )
+nodes/fragment/54/node = SubResource( 27 )
 nodes/fragment/54/position = Vector2( 140, -380 )
 nodes/fragment/connections = PoolIntArray( 2, 0, 16, 0, 16, 0, 14, 0, 16, 0, 14, 1, 2, 0, 19, 0, 19, 0, 20, 0, 26, 0, 0, 0, 20, 0, 25, 0, 20, 0, 27, 2, 27, 0, 22, 0, 22, 0, 26, 1, 5, 0, 28, 0, 28, 0, 29, 0, 29, 0, 26, 5, 25, 0, 30, 0, 31, 0, 30, 1, 30, 0, 26, 4, 32, 0, 33, 1, 33, 0, 19, 1, 32, 0, 20, 1, 42, 0, 44, 0, 43, 0, 45, 0, 44, 0, 45, 1, 48, 0, 42, 1, 50, 0, 47, 0, 46, 0, 50, 0, 42, 0, 43, 0, 45, 0, 52, 1, 14, 0, 42, 0, 47, 0, 48, 1, 52, 0, 28, 1, 20, 0, 53, 0, 22, 0, 54, 1, 53, 0, 54, 4, 29, 0, 54, 5, 54, 0, 0, 3 )
 
-[sub_resource type="ShaderMaterial" id=16]
-shader = SubResource( 15 )
+[sub_resource type="ShaderMaterial" id=29]
+render_priority = 1
+shader = SubResource( 28 )
 shader_param/Tiles = 32.0
 shader_param/Darkening = 5.0
 
 [node name="BackGround" type="Sprite"]
-material = SubResource( 16 )
+material = SubResource( 29 )
 position = Vector2( 328, 292 )
 scale = Vector2( 2.5, 2.28125 )
 texture = ExtResource( 1 )
