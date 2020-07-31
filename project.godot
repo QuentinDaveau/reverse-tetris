@@ -50,7 +50,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Reverse Tetris"
+config/name="TERT"
 run/main_scene="res://src/menu/MainMenu.tscn"
 config/icon="res://assets/sprites/tert_logo.png"
 
@@ -86,5 +86,7 @@ ssl/certificates="res://assets/certificates/cert.crt"
 
 [rendering]
 
+threads/thread_model=2
+quality/filters/anisotropic_filter_level=2
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

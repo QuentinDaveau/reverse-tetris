@@ -299,6 +299,7 @@ z_index = 100
 [node name="Tween" type="Tween" parent="GameOverPanel"]
 
 [node name="MusicPlayer" parent="." instance=ExtResource( 18 )]
+pause_mode = 2
 [connection signal="mouse_entered" from="MenuButton/Control/CenterContainer/TextureButton" to="MenuButton/Control/CenterContainer/TextureButton" method="_on_TextureButton_mouse_entered"]
 [connection signal="pressed" from="MenuButton/Control/CenterContainer/TextureButton" to="MenuButton/Control/CenterContainer/TextureButton" method="_on_TextureButton_pressed"]
 [connection signal="wheel_final_stop" from="ScoreCounter" to="." method="_on_ScoreCounter_wheel_final_stop"]
