@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/music_player/music_player.gd" type="Script" id=1]
+[ext_resource path="res://assets/music_samples/sample1.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/music_samples/sample3.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/music_samples/sample4.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/music_samples/sample2.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/music_samples/sample6.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/music_samples/sample5.ogg" type="AudioStream" id=7]
+
+[node name="MusicPlayer" type="Node"]
+script = ExtResource( 1 )
+_samples_path = "res://assets/music_samples"
+
+[node name="Player1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -16.0
+
+[node name="Player2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -16.0
+
+[node name="Player3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -16.0
+
+[node name="Player4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -16.0
+
+[node name="Player5" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -16.0
+
+[node name="Player6" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -16.0
+
+[node name="Player7" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -16.0
+
+[node name="Player8" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -16.0
+
+[node name="Player9" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -16.0
+
+[node name="Player10" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -16.0
+
+[node name="Player11" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -16.0
+
+[node name="Player12" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -16.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.84
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

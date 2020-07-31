@@ -52,7 +52,7 @@ _global_script_class_icons={
 
 config/name="Reverse Tetris"
 run/main_scene="res://src/menu/MainMenu.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/sprites/tert_logo.png"
 
 [autoload]
 
@@ -75,6 +75,10 @@ game_rotate={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [network]
 

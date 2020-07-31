@@ -364,6 +364,9 @@ script = ExtResource( 16 )
 visible = false
 position = Vector2( 0, 600 )
 
+[node name="SortType" parent="ScoresPage/Control/MarginContainer/VBoxContainer/OptionsContainer/HBoxContainer" index="1"]
+items = [ "Score", null, false, 0, null, "Name", null, false, 1, null, "Date", null, false, 2, null ]
+
 [node name="AboutPage" parent="." instance=ExtResource( 32 )]
 visible = false
 position = Vector2( 0, 600 )
@@ -374,19 +377,19 @@ current = true
 
 [node name="CameraTween" type="Tween" parent="."]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" method="_on_TextureButton_mouse_entered"]
 [connection signal="mouse_exited" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/QuestionButton" method="_on_TextureButton_mouse_exited"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" method="_on_ScoreButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" method="_on_ScoreButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="." method="_on_ScoreButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ScoreButton" method="_on_ScoreButton_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" method="_on_AboutButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" method="_on_AboutButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" to="." method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AboutButton" method="_on_AboutButton_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" to="Control/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="ScoresPage/Control/MarginContainer/VBoxContainer/HBoxContainer/GoBackButton" to="." method="_on_GoBackButton_pressed"]
 [connection signal="pressed" from="AboutPage/Control/CenterContainer/MarginContainer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
 

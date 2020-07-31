@@ -30,19 +30,13 @@ func move(aimed_position: Vector2) -> void:
 	$Tween.start()
 
 
-func update_shader(line_delay: float) -> void:
-	$Sprite.get_material().set_shader_param("delay", line_delay)
-
-
 func set_color(new_color: Color) -> void:
-	$Sprite.get_material().set_shader_param("ColorModulator", new_color)
+	$Sprite.self_modulate = new_color.lightened(0.1) * 1.3
 
 
 func explode(play_sound: bool = true) -> void:
 	$Tween.interpolate_property($Sprite, "modulate", $Sprite.modulate * Color(1, 1, 1, 1) * 5,
 			$Sprite.modulate * 5 * Color(1, 1, 1, 0), 0.2, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-#	$Tween.interpolate_property($Sprite, "scale", $Sprite.scale,
-#			$Sprite.scale * 1.2, 0.5, Tween.TRANS_CIRC, Tween.EASE_OUT)
 	$Tween.start()
 	if play_sound:
 		$ShootSound.pitch_scale = Engine.time_scale * rand_range(0.9, 1.1)

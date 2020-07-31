@@ -96,7 +96,7 @@ func update_player_proj() -> void:
 	for i in range(blocks.size()):
 		models[i].move(_convert_to_world_position(Vector2(pos.x + blocks[i].y,
 			int(_rows + pos.y + blocks[i].x) % _rows)))
-		models[i].update_shader(blocks[i].y)
+#		models[i].update_shader(blocks[i].y)
 	
 	var neighbours: PoolVector2Array = []
 	for block in blocks:
@@ -166,10 +166,6 @@ func _destroy_block(grid_position: Vector2, explosion_color: Color) -> void:
 		return
 	_spawn_smoke(cells[grid_position.x][grid_position.y].global_position)
 	cells[grid_position.x][grid_position.y].explode(explosion_color, 
-#			(grid_position.y * _cell_size) + (_cell_size / 2),
-#			((_rows - grid_position.y) * _cell_size) - (_cell_size / 2),
-#			(grid_position.x * _cell_size) - (_cell_size * 1.5),
-#			((_columns - grid_position.x) * _cell_size) - (_cell_size * 1.5))
 			global_position.x - 16, (global_position.x - 16) + (_cell_size * _rows),
 			global_position.y - 48, global_position.y - ((_columns - 1.5) * _cell_size))
 	cells[grid_position.x][grid_position.y] = 0
@@ -205,7 +201,6 @@ func _check_and_move(current_position: Vector2, new_position: Vector2) -> Vector
 	if not cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows]:
 		cells[int(_columns + new_position.x) % _columns][int(_rows + new_position.y) % _rows] = cells[current_position.x][current_position.y]
 		cells[current_position.x][current_position.y] = 0
-#		_push_wall(1)
 		return Vector2(int(_columns + new_position.x) % _columns, int(_rows + new_position.y) % _rows)
 	else:
 		return current_position

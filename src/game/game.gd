@@ -19,3 +19,4 @@ func _on_ScoreCounter_wheel_final_stop(final_score) -> void:
 	$GameOverPanel/Tween.interpolate_property($Node2D/ColorRect, "color:a", 0,
 			0.6, 0.4, Tween.TRANS_SINE, Tween.EASE_OUT, 1)
 	$GameOverPanel/Tween.start()
+	$MusicPlayer.stop()
